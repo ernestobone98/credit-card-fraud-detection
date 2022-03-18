@@ -38,13 +38,13 @@ Début du script de l'interface
 '''
 win  = Tk()
 win.title("CONNEXION BANK OF DADDYS")
-win.iconbitmap('D:\\image_terd\\logo.ico')
+win.iconbitmap('views\\img\\logo.ico')
 win.geometry("600x600")
 win.resizable(False, False)
 win.configure(background="black")
 
 #Pour logo BANK OF DADDYS
-img = PhotoImage(file ='D:\\image_terd\\logo.png')
+img = PhotoImage(file ='views\\img\\logo.png')
 lbl_picture = Label (win, image=img)
 lbl_picture.place(x = 45, y = 45)
 
@@ -76,11 +76,11 @@ def login():
         txt_passeword.delete("0", "end")
         win.destroy()
         if (user_name == expert1 and password == password_e1):
-            call(["python", "accueil_e.py"])
+            call(["python", "views\\accueil_e.py"])
         elif (user_name == expert2 and password == password_e2):
-            call(["python", "accueil_e.py"])
+            call(["python", "views\\accueil_e.py"])
         elif (user_name == patron and password == password_p):
-            call(["python", "accueil_p.py"])        
+            call(["python", "views\\accueil_p.py"])        
     else:
         messagebox.showwarning("", "Erreur de connexion")
         txt_passeword.delete("0", "end")

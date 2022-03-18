@@ -19,7 +19,7 @@ Début du script
 win  = Tk()
 win.title("MENU EXPERT")
 win.geometry("1400x800")
-win.iconbitmap('img\\logo.ico')
+win.iconbitmap('views\\img\\logo.ico')
 win.configure(background='#000000')
 
 # Analyse les statistiques
