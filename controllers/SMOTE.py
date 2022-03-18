@@ -5,8 +5,12 @@ from imblearn.over_sampling import SMOTE
 from sklearn.linear_model import LogisticRegression
 from sklearn.datasets import make_classification
 from collections import Counter
+import os
+import time
 
-data = pd.read_csv('models\\creditcard.csv')
+sep = os.path.sep
+current_dir = os.getcwd()
+data = pd.read_csv("models"+sep+"creditcard.csv")
 
 # showing original data
 X, y = make_classification(n_classes=2, class_sep=0.5,
@@ -33,4 +37,5 @@ for label_s, _ in counter_s.items():
 	row_ix_s = np.where(y_s == label_s)[0]
 	plt.scatter(X_s[row_ix_s, 0], X_s[row_ix_s, 1], label=str(label_s))
 
-plt.show()
+# plt.show()
+plt.savefig(f"{current_dir}{sep}views{sep}figs{sep}fig_0", dpi=300, bbox_inches='tight', pad_inches=0)
