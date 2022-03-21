@@ -1,0 +1,8 @@
+# list of used librairies
+pandas
+matplotlib
+numpy
+imblearn
+sklearn
+fpdf
+tk
