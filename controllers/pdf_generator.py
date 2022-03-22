@@ -58,6 +58,12 @@ class PDF(FPDF):
         self.add_page()
         self.page_body(images)
 
+    def lines(self):
+        self.set_fill_color(32.0, 47.0, 250.0) # color for outer rectangle
+        self.rect(5.0, 5.0, 200.0,287.0,'DF')
+        self.set_fill_color(255, 255, 255) # color for inner rectangle
+        self.rect(8.0, 8.0, 194.0,282.0,'FD')
+
 
 def plot(data: pd.DataFrame, filename: str) -> None:
     plt.figure(figsize=(12, 4))
@@ -76,7 +82,11 @@ PLOT_DIR = f'{current_dir}{sep}views{sep}reports'
 
 
 if __name__ == '__main__':
-    file = f'{current_dir}{sep}figs{sep}fig_0.png'
+    file = f'{current_dir}{sep}views{sep}figs{sep}fig_0.png'
     pdf = PDF()
-    pdf.print_page(file)
+    # pdf.print_page(file)
+    pdf.add_page()
+    pdf.header()
+    pdf.lines()
+    pdf.image(file, 15, 25, pdf.WIDTH - 30)
     pdf.output(f'{PLOT_DIR}{sep}Report0.pdf', 'F')
