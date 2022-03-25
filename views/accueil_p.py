@@ -19,7 +19,7 @@ Début du script
 win  = Tk()
 win.title("MENU PATRON")
 win.geometry("1400x700")
-win.iconbitmap('img\\logo.ico')
+#win.iconbitmap('img\\logo.ico')
 win.configure(background='#000000')
 
 #Pour les stats

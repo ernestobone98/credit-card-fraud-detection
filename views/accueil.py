@@ -3,17 +3,19 @@ import os
 from email.mime import image
 from tkinter import *
 from PIL import ImageTk, Image
-#from controllers.inter_funct import log_out
-from controllers import inter_funct as inf
+from subprocess import call
 
 sep = os.path.sep
 
 def btn_clicked():
     print("Button Clicked")
 
+def log_out():
+    window.destroy()
+
+    call(["python3", f"views{sep}login.py"])
 
 window = Tk()
-
 window.geometry("1200x720")
 window.configure(bg = "#ffffff")
 canvas = Canvas(
@@ -46,11 +48,12 @@ b0.place(
     height = 45)
 
 img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
+
 b1 = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
-    command = inf.log_out(window),
+    command = log_out,
     relief = "flat",
     background='#D8BB67')
 
@@ -74,7 +77,7 @@ b2.place(
     height = 45)
 
 #img3 = PhotoImage(file = f"ernesto.jpg")
-img3 = ImageTk.PhotoImage(Image.open("views{sep}img{sep}marco.png"))
+img3 = ImageTk.PhotoImage(Image.open(f"views{sep}img{sep}marco.png"))
 b3 = Label(
     background='#262A33',
     image = img3,

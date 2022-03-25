@@ -50,11 +50,12 @@ def login():
         entry0.delete("0", "end")
         entry1.delete("0", "end")
         window.destroy()
-        if ((user_name == expert1 and password == password_e1)
-        or (user_name == expert2 and password == password_e2)):
-            call(["python", f"views{sep}accueil.py"])
+        if (user_name == expert1 and password == password_e1):
+            call(["python3", f"views{sep}accueil.py"])
+        elif (user_name == expert2 and password == password_e2):
+            call(["python3", f"views{sep}accueil.py"])
         elif (user_name == patron and password == password_p):
-            call(["python", f"views{sep}accueil_p.py"])        
+            call(["python3", f"views{sep}accueil_p.py"])        
     else:
         messagebox.showwarning("", "Erreur de connexion")
         entry1.delete("0", "end")
