@@ -21,9 +21,9 @@ password_e1 = "".join(choice(struct) for x in range(randint(8,16)))
 password_e2 = "".join(choice(struct) for x in range(randint(8,16)))
 
 # -- Affichage -- #
-print("ex163249: {}".format(password_e1))
-print("ex263250: {}".format(password_e2))
-print("pa809711: {}".format(password_p))
+print("gm801217: {}".format(password_e1))
+print("be816425: {}".format(password_e2))
+print("bb809906: {}".format(password_p))
 
 # ------------- Hache les mots de passe et les stocks dans un fichier text ------------- #
 password_e1_h = str(hash(password_e1))
@@ -37,9 +37,9 @@ with open("109111116321001013211297115115101.txt", "w") as txtfile:
 
 
 def login():
-    expert1 = "ex163249" 
-    expert2 = "ex263250" 
-    patron  = "pa809711" 
+    expert1 = "gm801217" 
+    expert2 = "be816425" 
+    patron  = "bb809906" 
     user_name = entry0.get()
     password = entry1.get()
     if (user_name == "" and password == ""):

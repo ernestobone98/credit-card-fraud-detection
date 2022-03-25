@@ -37,5 +37,5 @@ for label_s, _ in counter_s.items():
 	row_ix_s = np.where(y_s == label_s)[0]
 	plt.scatter(X_s[row_ix_s, 0], X_s[row_ix_s, 1], label=str(label_s))
 
-# plt.show()
+plt.show()
 plt.savefig(f"{current_dir}{sep}views{sep}figs{sep}fig_0", dpi=300, bbox_inches='tight', pad_inches=0)

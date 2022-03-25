@@ -1,54 +1,100 @@
-'''
-Fait par Gazzera Marco:
-Interface intérieur patron
-'''
-
-'''
-Les import
-'''
-
-import tkinter
-from tkinter import ttk, Tk
+from cmath import log
+import os
+from email.mime import image
 from tkinter import *
-from tkinter import messagebox
+from PIL import ImageTk, Image
+from subprocess import call
 
-'''
-Début du script
-'''
+sep = os.path.sep
 
-win  = Tk()
-win.title("MENU PATRON")
-win.geometry("1400x700")
-#win.iconbitmap('img\\logo.ico')
-win.configure(background='#000000')
+def btn_clicked():
+    print("Button Clicked")
 
-#Pour les stats
-def print_stats():
-	print("Statistique")
+def log_out():
+    window.destroy()
 
-btn_stats = Button(win, text = "Graphe", font = ("Arial", 16),bg ="#DCB253", fg = "black", command=print_stats)
-btn_stats.place(x=50, y= 50, width=1300, height=550)
+    call(["python3", f"views{sep}login.py"])
 
-#Pour ouvrir le rapport
-def open_report():
-	file = open('rapport.txt', "r")
-	line = file.readline()
-	while line:
-	    print(line)
-	    line = file.readline()
-	file.close()
+window = Tk()
+window.geometry("1200x720")
+window.title("Interface du patron")
+window.configure(bg = "#ffffff")
+canvas = Canvas(
+    window,
+    bg = "#ffffff",
+    height = 720,
+    width = 1200,
+    bd = 0,
+    highlightthickness = 0,
+    relief = "ridge")
+canvas.place(x = 0, y = 0)
 
-btn_open_report = Button(win, text = "Rapport", font = ("Arial", 16),bg ="#DCB253", fg = "black", command=open_report)
-btn_open_report.place(x=75, y= 650, width=150)
+background_img = PhotoImage(file = f"views{sep}img{sep}bg_inter.png")
+background = canvas.create_image(
+    600.0, 360.0,
+    image=background_img)
 
-#Pour faire une decision
-def decision():
-	print("Decision est de")
+img0 = PhotoImage(file = f"views{sep}img{sep}env.png")
+b0 = Button(
+    image = img0,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = btn_clicked,
+    relief = "flat",
+    background= '#262A33')
 
-btn_decision = Button(win, text = "Décision", font = ("Arial", 16),bg ="#DCB253", fg = "black", command=decision)
-btn_decision.place(x=1175, y= 650, width=150)
+b0.place(
+    x = 131, y = 373,
+    width = 45,
+    height = 45)
 
-'''
-Fin du script
-'''
-win.mainloop()
+img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
+
+b1 = Button(
+    image = img1,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = log_out,
+    relief = "flat",
+    background='#D8BB67')
+
+b1.place(
+    x = 1149, y = 25,
+    width = 25,
+    height = 25)
+
+img2 = PhotoImage(file = f"views{sep}img{sep}report.png")
+b2 = Button(
+    image = img2,
+    borderwidth = 0,
+    highlightthickness = 0,
+    command = btn_clicked,
+    relief = "flat",
+    background= '#262A33')
+
+b2.place(
+    x = 131, y = 515,
+    width = 45,
+    height = 45)
+
+img3 = ImageTk.PhotoImage(Image.open(f"views{sep}img{sep}benjamin.png"))
+b3 = Label(
+    background='#262A33',
+    image = img3,
+    borderwidth = 0,
+    highlightthickness = 0,
+    relief = "flat")
+
+b3.place(
+    x = 110, y = 135,
+    width = 88,
+    height = 88)
+
+canvas.create_text(
+    159.0, 260.5,
+    text = "Benjamin",
+    fill = "#ffffff",
+    font = ("RalewayRoman-Regular", int(18.0)))
+
+window.resizable(False, False)
+window.mainloop()

@@ -17,6 +17,7 @@ def log_out():
 
 window = Tk()
 window.geometry("1200x720")
+window.title("Interface de l'expert")
 window.configure(bg = "#ffffff")
 canvas = Canvas(
     window,
