@@ -84,7 +84,7 @@ def main_window():
     window = Tk()
     window.geometry("520x550")
     window.title("CONNEXION BANK OF DADDYS")
-    window.iconbitmap(f'{current_dir}{sep}views{sep}img{sep}bd.ico')
+    #window.iconbitmap(f'{current_dir}{sep}views{sep}img{sep}bd.ico')
     window.configure(bg = "#ffffff")
     canvas = Canvas(
         window,
@@ -156,7 +156,7 @@ splash = Tk()
 splash.geometry("350x210")
 splash.configure(bg = "#ffffff")
 splash.title("EN COURS DE CONNEXION ")
-splash.iconbitmap(f'{current_dir}{sep}views{sep}img{sep}bd.ico')
+#splash.iconbitmap(f'{current_dir}{sep}views{sep}img{sep}bd.ico')
 canvas = Canvas(
     splash,
     bg = "#ffffff",
