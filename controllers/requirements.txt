@@ -7,3 +7,4 @@ sklearn
 fpdf
 tk
 tkPDFViewer
+Pillow
