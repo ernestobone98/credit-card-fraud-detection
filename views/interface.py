@@ -41,7 +41,7 @@ Début du script de l'interface
 '''
 win  = Tk()
 win.title("CONNEXION BANK OF DADDYS")
-win.iconbitmap(file =f'views{sep}img{sep}logo.ico')
+#win.iconbitmap(file =f'views{sep}img{sep}logo.ico')
 win.geometry("600x600")
 win.resizable(False, False)
 win.configure(background="black")
