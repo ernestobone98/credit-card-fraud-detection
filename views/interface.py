@@ -7,6 +7,9 @@ from tkinter import messagebox
 
 import string
 from random import *
+import os
+
+sep = os.path.sep
 
 # ------------- Génerer les caractères autorisé pour le mot de passe ------------- #
 struct = string.ascii_letters + string.punctuation + string.digits 
@@ -38,13 +41,14 @@ Début du script de l'interface
 '''
 win  = Tk()
 win.title("CONNEXION BANK OF DADDYS")
-win.iconbitmap('views\\img\\logo.ico')
+win.iconbitmap(file =f'views{sep}img{sep}logo.ico')
 win.geometry("600x600")
 win.resizable(False, False)
 win.configure(background="black")
 
+
 #Pour logo BANK OF DADDYS
-img = PhotoImage(file ='views\\img\\logo.png')
+img = PhotoImage(file =f'views{sep}img{sep}logo.png')
 lbl_picture = Label (win, image=img)
 lbl_picture.place(x = 45, y = 45)
 
@@ -76,11 +80,11 @@ def login():
         txt_passeword.delete("0", "end")
         win.destroy()
         if (user_name == expert1 and password == password_e1):
-            call(["python", "views\\accueil_e.py"])
+            call(["python", "views{sep}accueil_e.py"])
         elif (user_name == expert2 and password == password_e2):
-            call(["python", "views\\accueil_e.py"])
+            call(["python", "views{sep}accueil_e.py"])
         elif (user_name == patron and password == password_p):
-            call(["python", "views\\accueil_p.py"])        
+            call(["python", "views{sep}accueil_p.py"])        
     else:
         messagebox.showwarning("", "Erreur de connexion")
         txt_passeword.delete("0", "end")
