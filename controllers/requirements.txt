@@ -6,3 +6,4 @@ imblearn
 sklearn
 fpdf
 tk
+tkPDFViewer
