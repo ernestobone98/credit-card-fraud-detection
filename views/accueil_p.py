@@ -8,11 +8,14 @@ from subprocess import call
 sep = os.path.sep
 
 def btn_clicked():
-    print("Button Clicked")
+    print("btn_clicked")
+
+def open_report():
+    rapport = f"views{sep}reports{sep}Report0.pdf"
+    os.system(f'xdg-open {rapport}')
 
 def log_out():
     window.destroy()
-
     call(["python3", f"views{sep}login.py"])
 
 window = Tk()
@@ -63,12 +66,13 @@ b1.place(
     width = 25,
     height = 25)
 
-img2 = PhotoImage(file = f"views{sep}img{sep}report.png")
+rep = f"views{sep}img{sep}report.png"
+img2 = PhotoImage(file = rep)
 b2 = Button(
     image = img2,
     borderwidth = 0,
     highlightthickness = 0,
-    command = btn_clicked,
+    command = open_report,
     relief = "flat",
     background= '#262A33')
 
