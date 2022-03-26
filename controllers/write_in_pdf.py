@@ -13,7 +13,7 @@ def export():
     pdf.output(asksaveasfilename(filetypes=[("PDF file", "*.pdf")]), "F")
 
 win = Tk()
-win.title("Ecrire dans rapport")
+win.title("Ecrire votre message")
 textbox = ScrolledText(win)
 textbox.pack(fill=BOTH, expand=YES)
 Button(win, text="Export to PDF", command=export).pack(fill=X)

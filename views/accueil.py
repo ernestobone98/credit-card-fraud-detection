@@ -7,12 +7,19 @@ from subprocess import call
 
 sep = os.path.sep
 
+'''
 def btn_clicked():
     print("Button Clicked")
+'''
+
+def create_message():
+    call(["python3", f"controllers{sep}write_in_pdf.py"])
+
+def create_report():
+    call(["python3", f"controllers{sep}pdf_generator.py"])
 
 def log_out():
     window.destroy()
-
     call(["python3", f"views{sep}login.py"])
 
 window = Tk()
@@ -39,7 +46,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    command = btn_clicked,
+    command = create_message,
     relief = "flat",
     background= '#262A33')
 
@@ -47,6 +54,12 @@ b0.place(
     x = 131, y = 373,
     width = 45,
     height = 45)
+
+canvas.create_text(
+    159.0, 433.5,
+    text = "Message(s)",
+    fill = "#ffffff",
+    font = ("RalewayRoman-Regular", int(18.0)))
 
 img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
 
@@ -68,7 +81,7 @@ b2 = Button(
     image = img2,
     borderwidth = 0,
     highlightthickness = 0,
-    command = btn_clicked,
+    command = create_report,
     relief = "flat",
     background= '#262A33')
 
@@ -76,6 +89,12 @@ b2.place(
     x = 131, y = 515,
     width = 45,
     height = 45)
+
+canvas.create_text(
+    161.0, 585.5,
+    text = "Génerer un rapport",
+    fill = "#ffffff",
+    font = ("RalewayRoman-Regular", int(18.0)))
 
 #img3 = PhotoImage(file = f"ernesto.jpg")
 img3 = ImageTk.PhotoImage(Image.open(f"views{sep}img{sep}marco.png"))

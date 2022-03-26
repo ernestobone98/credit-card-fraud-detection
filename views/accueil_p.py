@@ -7,11 +7,17 @@ from subprocess import call
 
 sep = os.path.sep
 
+'''
 def btn_clicked():
     print("btn_clicked")
+'''
+
+def open_message():
+    rapport = f"views{sep}reports{sep}Message.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
+    os.system(f'xdg-open {rapport}')
 
 def open_report():
-    rapport = f"views{sep}reports{sep}Report0.pdf"
+    rapport = f"views{sep}reports{sep}Report0.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
     os.system(f'xdg-open {rapport}')
 
 def log_out():
@@ -42,7 +48,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    command = btn_clicked,
+    command = open_message,
     relief = "flat",
     background= '#262A33')
 
@@ -50,6 +56,12 @@ b0.place(
     x = 131, y = 373,
     width = 45,
     height = 45)
+
+canvas.create_text(
+    159.0, 433.5,
+    text = "Message(s)",
+    fill = "#ffffff",
+    font = ("RalewayRoman-Regular", int(18.0)))
 
 img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
 
@@ -80,6 +92,12 @@ b2.place(
     x = 131, y = 515,
     width = 45,
     height = 45)
+
+canvas.create_text(
+    161.0, 585.5,
+    text = "Ouvrir un rapport",
+    fill = "#ffffff",
+    font = ("RalewayRoman-Regular", int(18.0)))
 
 img3 = ImageTk.PhotoImage(Image.open(f"views{sep}img{sep}benjamin.png"))
 b3 = Label(
