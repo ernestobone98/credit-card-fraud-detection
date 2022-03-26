@@ -3,7 +3,7 @@ import os
 from email.mime import image
 from tkinter import *
 from PIL import ImageTk, Image
-from subprocess import call
+import subprocess as sub
 
 sep = os.path.sep
 
@@ -13,16 +13,18 @@ def btn_clicked():
 '''
 
 def open_message():
-    rapport = f"views{sep}reports{sep}Message.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
+    rapport = f"views{sep}reports{sep}message.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
     os.system(f'xdg-open {rapport}')
 
 def open_report():
-    rapport = f"views{sep}reports{sep}Report0.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
+    cmd = ['ls', f'views{sep}reports{sep}']
+    report_name = sub.check_output(cmd).decode('utf-8').split('\n')[0]
+    rapport = f"views{sep}reports{sep}{report_name}"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
     os.system(f'xdg-open {rapport}')
 
 def log_out():
     window.destroy()
-    call(["python3", f"views{sep}login.py"])
+    sub.call(["python3", f"views{sep}login.py"])
 
 window = Tk()
 window.geometry("1200x720")
