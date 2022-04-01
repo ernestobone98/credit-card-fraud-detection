@@ -17,8 +17,8 @@ def open_message():
     os.system(f'xdg-open {rapport}')
 
 def open_report():
-    cmd = ['dir', f'views{sep}reports{sep}']
-    report_name = sub.check_output(cmd).decode('utf-8').split('\n')[0]
+    cmd = ['ls', f'views{sep}reports{sep}']
+    report_name = sub.check_output(cmd).decode('utf-8').split('\n')[-2]
     rapport = f"views{sep}reports{sep}{report_name}"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
     os.system(f'xdg-open {rapport}')
 
