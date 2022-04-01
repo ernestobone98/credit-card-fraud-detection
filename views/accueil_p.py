@@ -4,21 +4,16 @@ from email.mime import image
 from tkinter import *
 from PIL import ImageTk, Image
 import subprocess as sub
+from subprocess import call
 
 sep = os.path.sep
 
-'''
-def btn_clicked():
-    print("btn_clicked")
-'''
-
-def open_message():
-    rapport = f"views{sep}reports{sep}message.pdf"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
-    os.system(f'xdg-open {rapport}')
+def create_message():
+    call(["python3", f"controllers{sep}write.py"])
 
 def open_report():
-    cmd = ['dir', f'views{sep}reports{sep}']
-    report_name = sub.check_output(cmd).decode('utf-8').split('\n')[0]
+    cmd = ['ls', f'views{sep}reports{sep}']
+    report_name = sub.check_output(cmd).decode('utf-8').split('\n')[-2]
     rapport = f"views{sep}reports{sep}{report_name}"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
     os.system(f'xdg-open {rapport}')
 
@@ -50,7 +45,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    command = open_message,
+    command = create_message,
     relief = "flat",
     background= '#262A33')
 
@@ -115,7 +110,7 @@ b3.place(
     height = 88)
 
 canvas.create_text(
-    159.0, 260.5,
+    169.0, 260.5,
     text = "Benjamin",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))

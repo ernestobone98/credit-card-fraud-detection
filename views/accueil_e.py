@@ -8,13 +8,8 @@ import sys
 
 sep = os.path.sep
 
-'''
-def btn_clicked():
-    print("Button Clicked")
-'''
-
 def create_message():
-    call(["python3", f"controllers{sep}write_in_pdf.py"])
+    call(["python3", f"controllers{sep}write.py"])
 
 def create_report():
     call(["python3", f"controllers{sep}pdf_generator.py"])
