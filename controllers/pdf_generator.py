@@ -87,6 +87,6 @@ if __name__ == '__main__':
     pdf.lines()
     pdf.image_logo()
     pdf.head()
-    pdf.body(gen_html())
-    pdf.body(gen_text(), y=150)
+    #pdf.body(gen_html())
+    #pdf.body(gen_text(), y=150)
     pdf.output(f'{PLOT_DIR}{sep}Report_{filename}.pdf', 'F')
