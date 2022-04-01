@@ -1,13 +1,15 @@
 import os
 from datetime import date, datetime
 from fpdf import FPDF, HTMLMixin
+from SMOTE import classification_report, accuracy_score, gb, y_test, y_predict
+import re
 
 sep = os.path.sep
 current_dir = os.getcwd()
 
 ####################################### 
 # pour l'instant cette partie est juste horrible mais j'ai pas réussi a faire autrement
-def gen_text(transac_id = 0, price = 0, client_id = 0):
+def gen_html(transac_id = 0, price = 0, client_id = 0):
     date_ = date.today().strftime("%d/%m/%Y")
     time = datetime.now().strftime("%H:%M:%S")
 
@@ -22,9 +24,19 @@ def gen_text(transac_id = 0, price = 0, client_id = 0):
     <li><U>Montant de la transaction</U> : {price} EUR</li>
     <li><U>ID Client</U> : {client_id} </li></ul>\n
     <p>
-
+ 
     <p> Résultats de l'analyse :
     '''
+
+def gen_text():
+    nclass = re.sub(' +', ' ', classification_report(y_test, y_predict)).split(' ')
+    res = ''
+    for i in range(6):
+        res += nclass[i] + ' | '
+    res += 110*' '
+    for j in range(6, 13):
+        res+= nclass[j] + ' | '
+    return res
 #######################################
 
 
@@ -43,10 +55,10 @@ class PDF(FPDF, HTMLMixin):
         self.cell(50, 10, 'Fraud report', 0, 0, 'R')
         self.ln(20)
 
-    def body(self, text):
+    def body(self, text, y=50):
         self.ln(40)
         self.set_font('Arial', 'B', 11)
-        self.set_y(50)
+        self.set_y(y)
         self.write_html(text)
 
     def footer(self):
@@ -75,6 +87,6 @@ if __name__ == '__main__':
     pdf.lines()
     pdf.image_logo()
     pdf.head()
-    pdf.body(gen_text())
-    pdf.image(file, 15, 115, pdf.WIDTH - 30)
+    pdf.body(gen_html())
+    pdf.body(gen_text(), y=150)
     pdf.output(f'{PLOT_DIR}{sep}Report_{filename}.pdf', 'F')
