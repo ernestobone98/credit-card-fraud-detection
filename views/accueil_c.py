@@ -1,5 +1,6 @@
 from tkinter import ttk, Tk
 from tkinter import *
+from tkinter import messagebox
 import os
 
 sep = os.path.sep
@@ -14,13 +15,29 @@ win.configure(background= '#D9D9D9')
 def deplacement():
     img_coords = canvas.coords (image)
     img_width = img_dollar_2.width()
-    if img_coords [0] + img_width <= 880:
+    if img_coords [0] + img_width <= 260:
         canvas.move(image, 1, 0)
         win.after(70, deplacement)
+
                     
 def arte():
-    print("Rien a signialer tout vas bien !")
+    with open(f"views{sep}reports{sep}message_client.txt") as file:
+        text = file.readlines()
+        if len(text) == 0:
+            messagebox.showinfo("Pas alerte", "Petit tout vas bien")
+        else:
+            messagebox.showinfo("Alerte", text)
 
+
+    '''
+    try:
+        rapport = f"views{sep}reports{sep}message_client.txt"
+        with open(rapport, 'r') as file:
+            messagebox.showinfo(file.readlines())
+        #os.system(f'xdg-open {rapport}') 
+    except NameError:
+        messagebox.showinfo("", "Pas de problème")
+    '''
 img = PhotoImage(file = f"views{sep}img{sep}iphone.png")
 lbl_picture = Label (win, image=img)
 lbl_picture.place(x = -42, y = -10)
