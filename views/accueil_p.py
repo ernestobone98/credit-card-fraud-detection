@@ -1,4 +1,4 @@
-    from cmath import log
+from cmath import log
 import os
 from email.mime import image
 from tkinter import *
@@ -115,7 +115,7 @@ b3.place(
     height = 88)
 
 canvas.create_text(
-    159.0, 260.5,
+    169.0, 260.5,
     text = "Benjamin",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
