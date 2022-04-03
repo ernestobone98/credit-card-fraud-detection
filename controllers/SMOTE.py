@@ -14,18 +14,18 @@ from mpl_toolkits.mplot3d import Axes3D
 
 # ---------------------- preprocesing data ----------------------
 data = pd.read_csv('models\\creditcard.csv', sep= ',')
-
-X = data.iloc[:, data.columns != 'Class'].sample(n=50000, random_state=0)
-y = data.iloc[:, data.columns == 'Class'].sample(n=50000, random_state=0)
+data = data.drop(['Time', 'Amount'], axis=1)
+X = data.iloc[:, data.columns != 'Class'].sample(n=100000, random_state=0)
+y = data.iloc[:, data.columns == 'Class'].sample(n=100000, random_state=0)
 
 # Getting the amounts grouped by frauds or not
-gb = data.groupby('Class').agg(
-    transactions=('Class', 'count'),
-    total_revenue=('Amount', 'sum'),
-).round(2)
+# gb = data.groupby('Class').agg(
+#     transactions=('Class', 'count'),
+#     total_revenue=('Amount', 'sum'),
+# ).round(2)
+# print(gb)
 
-print(gb)
-data = data.drop(['Time', 'Amount'], axis=1)
+
 
 #taking just a part of data to developpe
 # X = X.to_numpy()
@@ -76,46 +76,42 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 #     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
 
 # ax.legend()
+# plt.savefig('imbalance.png')
 # plt.show()
 
 print("---------------------- Balancing Data ----------------------")
 
-df = X_train
-df['Class'] = y_train
-
-notfraud  =df[df.Class == 0]
-fraud = df[df.Class ==1]
-
-no_of_sample = round(notfraud.shape[0] *0.05)
-
-nofraud2 =  resample(notfraud,n_samples =no_of_sample,random_state = 0)
-data_sample = pd.concat([nofraud2,fraud],axis= 0)
-x_sample = data_sample.drop('Class',axis =1)
-y_sample = data_sample.Class
-
 over_sample = RandomOverSampler(random_state=0)
-X_train, y_train = over_sample.fit_resample(x_sample,y_sample)
+X_train, y_train = over_sample.fit_resample(X_train,y_train)
 
-print(X_train)
-print(y_train)
+pca = PCA(n_components=3)
+pca.fit(X_train)
+data_pca = pca.transform(X_train)
+data_pca = pd.DataFrame(data_pca)
+data_pca['Class'] = y_train
 
-# pca.fit(X_train)
-# data_pca = pca.transform(X_train)
-# data_pca = pd.DataFrame(data_pca)
-# data_pca['Class'] = y_train
+Xax = data_pca.iloc[:,0]
+Yax = data_pca.iloc[:,1]
+Zax = data_pca.iloc[:,2]
 
-# fig = plt.figure(figsize=(7,5))
-# ax = fig.add_subplot(111, projection='3d')
-# for key, grp in data_pca.groupby(['Class']):
-#     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
+cdict = {0:'red',1:'green'}
+labl = {0:'Not Fraud',1:'Fraud'}
+marker = {0:'*',1:'o'}
+alpha = {0:.3, 1:.5}
 
-# ax.legend()
+fig = plt.figure(figsize=(7,5))
+ax = fig.add_subplot(111, projection='3d')
+for key, grp in data_pca.groupby(['Class']):
+    ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
 
-# # plt.savefig('SMOTE.png')
-# plt.show()
+ax.legend()
+
+plt.savefig('over-sample.png')
+
 
 # ---------------------- ML models ----------------------
 print("training")
+
 # MLPClassifier Application
 model = MLPClassifier(hidden_layer_sizes=(200,))
 model.fit(X_train, y_train)
@@ -124,6 +120,7 @@ y_predict = model.predict(X_test)
 print(accuracy_score(y_test, y_predict))
 print(classification_report(y_test, y_predict))
 
+# NOTE : SVM -> SVC not efficient in this case
 # SVM Application
 # model = SVC()
 # model.fit(X_train, y_train)
@@ -131,3 +128,5 @@ print(classification_report(y_test, y_predict))
 
 # print(accuracy_score(y_test, y_predict))
 # print(classification_report(y_test, y_predict))
+
+plt.show()
