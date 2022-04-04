@@ -4,6 +4,9 @@
 \usepackage[french]{babel}
 \usepackage{fancyhdr}
 \usepackage{graphicx}
+\usepackage{datetime2}
+\usepackage[first=1, last=200]{lcg}
+\newcommand{\dice}{\rand\arabic{rand}}
 \pagestyle{fancy}
 
 \renewcommand{\headrulewidth}{1pt}
@@ -22,19 +25,19 @@
 \flushleft
 \bigbreak  
 \bigbreak  
-Ce rapport fait état de la fraude détectée le 01/04/2022 à 21h04 sur la transaction n°0.
+Ce rapport fait état de la fraude détectée \DTMsetdatestyle{ddmmyyyy}  le \today{}  à  \DTMcurrenttime{} sur la transaction n°\dice \dice {}  .
 \bigbreak  
 Veuillez trouver ci-dessous les détails du résultat :
 \bigbreak  
-ID Transaction: 12345
+ID Transaction:  \dice \dice {}  
 \bigbreak  
-Date: 01/04/2022
+Date: \DTMsetdatestyle{ddmmyyyy}  \today{}
 \bigbreak  
-Heure: 22h00
+Heure: \DTMcurrenttime{}
 \bigbreak  
-Montant de la transaction: 1000€
+Montant de la transaction:  \dice{}    €
 \bigbreak  
-Client: Poisson
+Client: \dice \dice{}
 \bigbreak  
 \section{Tableau récapitulatif de fraude}
 \flushleft
