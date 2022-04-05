@@ -11,12 +11,13 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
+from joblib import dump
 
 # ---------------------- preprocesing data ----------------------
 data = pd.read_csv('models\\creditcard.csv', sep= ',')
 data = data.drop(['Time', 'Amount'], axis=1)
-X = data.iloc[:, data.columns != 'Class'].sample(n=100000, random_state=0)
-y = data.iloc[:, data.columns == 'Class'].sample(n=100000, random_state=0)
+X = data.iloc[:, data.columns != 'Class']#.sample(n=110000, random_state=0)
+y = data.iloc[:, data.columns == 'Class']#.sample(n=110000, random_state=0)
 
 # Getting the amounts grouped by frauds or not
 # gb = data.groupby('Class').agg(
@@ -24,14 +25,6 @@ y = data.iloc[:, data.columns == 'Class'].sample(n=100000, random_state=0)
 #     total_revenue=('Amount', 'sum'),
 # ).round(2)
 # print(gb)
-
-
-
-#taking just a part of data to developpe
-# X = X.to_numpy()
-# y = y.to_numpy()
-# y = y.flatten()
-print("dataset loader")
 
 # NOTE: DataFrames are allowed with sklearn
 
@@ -46,9 +39,6 @@ print("dataset loader")
 
 print("---------------------- Splitting the data ----------------------")
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0, stratify=y)		#Dividing dataset with test_set <- 0.3*data
-# sc = StandardScaler()
-# X_train = sc.fit_transform(X_train)			# all data features except Class
-# X_test = sc.fit_transform(X_test)			# Class feature
 
 
 # ---------------------- Plotting imbalance ---------------------- Problem with the graph
@@ -116,6 +106,8 @@ print("training")
 model = MLPClassifier(hidden_layer_sizes=(200,))
 model.fit(X_train, y_train)
 y_predict = model.predict(X_test)
+
+dump(model, "MLPC.joblib")
 
 print(accuracy_score(y_test, y_predict))
 print(classification_report(y_test, y_predict))
