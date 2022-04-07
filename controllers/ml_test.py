@@ -8,7 +8,12 @@ data = data.drop(['Time', 'Amount'], axis=1)
 X = data.iloc[:, data.columns != 'Class']
 y = data.iloc[:, data.columns == 'Class']
 mlpc = load("controllers\\MLPC.joblib")
+rfc = load("controllers\\RFC.joblib")
 
 y_predict = mlpc.predict(X)
+print(accuracy_score(y, y_predict))
+print(classification_report(y, y_predict))
+
+y_predict = rfc.predict(X)
 print(accuracy_score(y, y_predict))
 print(classification_report(y, y_predict))
