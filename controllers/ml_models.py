@@ -1,13 +1,11 @@
-from dataclasses import dataclass
 import pandas  as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.utils import resample
-from imblearn.over_sampling import KMeansSMOTE
-from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
+from sklearn import ensemble
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
@@ -74,43 +72,55 @@ print("---------------------- Balancing Data ----------------------")
 over_sample = RandomOverSampler(random_state=0)
 X_train, y_train = over_sample.fit_resample(X_train,y_train)
 
-pca = PCA(n_components=3)
-pca.fit(X_train)
-data_pca = pca.transform(X_train)
-data_pca = pd.DataFrame(data_pca)
-data_pca['Class'] = y_train
+# pca = PCA(n_components=3)
+# pca.fit(X_train)
+# data_pca = pca.transform(X_train)
+# data_pca = pd.DataFrame(data_pca)
+# data_pca['Class'] = y_train
 
-Xax = data_pca.iloc[:,0]
-Yax = data_pca.iloc[:,1]
-Zax = data_pca.iloc[:,2]
+# Xax = data_pca.iloc[:,0]
+# Yax = data_pca.iloc[:,1]
+# Zax = data_pca.iloc[:,2]
 
-cdict = {0:'red',1:'green'}
-labl = {0:'Not Fraud',1:'Fraud'}
-marker = {0:'*',1:'o'}
-alpha = {0:.3, 1:.5}
+# cdict = {0:'red',1:'green'}
+# labl = {0:'Not Fraud',1:'Fraud'}
+# marker = {0:'*',1:'o'}
+# alpha = {0:.3, 1:.5}
 
-fig = plt.figure(figsize=(7,5))
-ax = fig.add_subplot(111, projection='3d')
-for key, grp in data_pca.groupby(['Class']):
-    ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
+# fig = plt.figure(figsize=(7,5))
+# ax = fig.add_subplot(111, projection='3d')
+# for key, grp in data_pca.groupby(['Class']):
+#     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
 
-ax.legend()
+# ax.legend()
 
-plt.savefig('over-sample.png')
+# plt.savefig('over-sample.png')
 
 
 # ---------------------- ML models ----------------------
 print("training")
 
 # MLPClassifier Application
-model = MLPClassifier(hidden_layer_sizes=(200,))
+# model = MLPClassifier(hidden_layer_sizes=(200,))
+# model.fit(X_train, y_train)
+# y_predict = model.predict(X_test)
+
+# dump(model, "MLPC.joblib")
+
+# print(accuracy_score(y_test, y_predict))
+# print(classification_report(y_test, y_predict))
+
+
+# RandomForest Application
+model = ensemble.RandomForestClassifier()
 model.fit(X_train, y_train)
 y_predict = model.predict(X_test)
 
-dump(model, "MLPC.joblib")
+dump(model, "RFC.joblib")
 
 print(accuracy_score(y_test, y_predict))
 print(classification_report(y_test, y_predict))
+
 
 # NOTE : SVM -> SVC not efficient in this case
 # SVM Application
@@ -121,4 +131,4 @@ print(classification_report(y_test, y_predict))
 # print(accuracy_score(y_test, y_predict))
 # print(classification_report(y_test, y_predict))
 
-plt.show()
+# plt.show()
