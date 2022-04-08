@@ -46,94 +46,99 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # ---------------------- Plotting imbalance ---------------------- Problem with the graph
 
-# Using PCA to have a clear plot 
-# pca = PCA(n_components=3)
-# pca.fit(X_train)
-# data_pca = pca.transform(X_train)
-# data_pca = pd.DataFrame(data_pca)
-# data_pca['Class'] = y_train
+def main():
+    # Using PCA to have a clear plot 
+    # pca = PCA(n_components=3)
+    # pca.fit(X_train)
+    # data_pca = pca.transform(X_train)
+    # data_pca = pd.DataFrame(data_pca)
+    # data_pca['Class'] = y_train
 
-# Xax = data_pca.iloc[:,0]
-# Yax = data_pca.iloc[:,1]
-# Zax = data_pca.iloc[:,2]
+    # Xax = data_pca.iloc[:,0]
+    # Yax = data_pca.iloc[:,1]
+    # Zax = data_pca.iloc[:,2]
 
-# cdict = {0:'red',1:'green'}
-# labl = {0:'Not Fraud',1:'Fraud'}
-# marker = {0:'*',1:'o'}
-# alpha = {0:.3, 1:.5}
-
-
-# fig = plt.figure(figsize=(7,5))
-# ax = fig.add_subplot(111, projection='3d')
-# for key, grp in data_pca.groupby(['Class']):
-#     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
-
-# ax.legend()
-# plt.savefig('imbalance.png')
-# plt.show()
-
-print("---------------------- Balancing Data ----------------------")
-
-over_sample = RandomOverSampler(random_state=0)
-X_train, y_train = over_sample.fit_resample(X_train,y_train)
-
-# pca = PCA(n_components=3)
-# pca.fit(X_train)
-# data_pca = pca.transform(X_train)
-# data_pca = pd.DataFrame(data_pca)
-# data_pca['Class'] = y_train
-
-# Xax = data_pca.iloc[:,0]
-# Yax = data_pca.iloc[:,1]
-# Zax = data_pca.iloc[:,2]
-
-# cdict = {0:'red',1:'green'}
-# labl = {0:'Not Fraud',1:'Fraud'}
-# marker = {0:'*',1:'o'}
-# alpha = {0:.3, 1:.5}
-
-# fig = plt.figure(figsize=(7,5))
-# ax = fig.add_subplot(111, projection='3d')
-# for key, grp in data_pca.groupby(['Class']):
-#     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
-
-# ax.legend()
-
-# plt.savefig('over-sample.png')
+    # cdict = {0:'red',1:'green'}
+    # labl = {0:'Not Fraud',1:'Fraud'}
+    # marker = {0:'*',1:'o'}
+    # alpha = {0:.3, 1:.5}
 
 
-# ---------------------- ML models ----------------------
-print("training")
+    # fig = plt.figure(figsize=(7,5))
+    # ax = fig.add_subplot(111, projection='3d')
+    # for key, grp in data_pca.groupby(['Class']):
+    #     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
 
-# MLPClassifier Application
-# model = MLPClassifier(hidden_layer_sizes=(200,))
-# model.fit(X_train, y_train)
-# y_predict = model.predict(X_test)
+    # ax.legend()
+    # plt.savefig('imbalance.png')
+    # plt.show()
 
-# dump(model, "MLPC.joblib")
+    print("---------------------- Balancing Data ----------------------")
 
-# print(accuracy_score(y_test, y_predict))
-# print(classification_report(y_test, y_predict))
+    over_sample = RandomOverSampler(random_state=0)
+    X_train, y_train = over_sample.fit_resample(X_train,y_train)
+
+    # pca = PCA(n_components=3)
+    # pca.fit(X_train)
+    # data_pca = pca.transform(X_train)
+    # data_pca = pd.DataFrame(data_pca)
+    # data_pca['Class'] = y_train
+
+    # Xax = data_pca.iloc[:,0]
+    # Yax = data_pca.iloc[:,1]
+    # Zax = data_pca.iloc[:,2]
+
+    # cdict = {0:'red',1:'green'}
+    # labl = {0:'Not Fraud',1:'Fraud'}
+    # marker = {0:'*',1:'o'}
+    # alpha = {0:.3, 1:.5}
+
+    # fig = plt.figure(figsize=(7,5))
+    # ax = fig.add_subplot(111, projection='3d')
+    # for key, grp in data_pca.groupby(['Class']):
+    #     ax.scatter(grp.iloc[:,0], grp.iloc[:,1], grp.iloc[:,2], marker=marker[key], label=labl[key])
+
+    # ax.legend()
+
+    # plt.savefig('over-sample.png')
 
 
-# RandomForest Application
-model = ensemble.RandomForestClassifier()
-model.fit(X_train, y_train)
-y_predict = model.predict(X_test)
+    # ---------------------- ML models ----------------------
+    print("training")
 
-dump(model, "RFC.joblib")
+    # MLPClassifier Application
+    # model = MLPClassifier(hidden_layer_sizes=(200,))
+    # model.fit(X_train, y_train)
+    # y_predict = model.predict(X_test)
 
-print(accuracy_score(y_test, y_predict))
-print(classification_report(y_test, y_predict))
+    # dump(model, "MLPC.joblib")
+
+    # print(accuracy_score(y_test, y_predict))
+    # print(classification_report(y_test, y_predict))
 
 
-# NOTE : SVM -> SVC not efficient in this case
-# SVM Application
-# model = SVC()
-# model.fit(X_train, y_train)
-# y_predict = model.predict(X_test)
+    # RandomForest Application
+    model = ensemble.RandomForestClassifier()
+    model.fit(X_train, y_train)
+    y_predict = model.predict(X_test)
 
-# print(accuracy_score(y_test, y_predict))
-# print(classification_report(y_test, y_predict))
+    dump(model, "RFC.joblib")
 
-# plt.show()
+    print(accuracy_score(y_test, y_predict))
+    print(classification_report(y_test, y_predict))
+
+
+    # NOTE : SVM -> SVC not efficient in this case
+    # SVM Application
+    # model = SVC()
+    # model.fit(X_train, y_train)
+    # y_predict = model.predict(X_test)
+
+    # print(accuracy_score(y_test, y_predict))
+    # print(classification_report(y_test, y_predict))
+
+    # plt.show()
+
+
+if __name__ == '__main__':
+    main()
