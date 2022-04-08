@@ -6,6 +6,10 @@ from PIL import ImageTk, Image
 from subprocess import call
 import sys
 import tkinter.font as font
+from pandastable import Table, TableModel
+from sklearn.metrics import accuracy_score, classification_report
+from joblib import load
+import pandas as pd
 
 sep = os.path.sep
 
@@ -18,6 +22,27 @@ def create_report():
 def log_out():
     window.destroy()
     call(["python3", f"views{sep}login.py"])
+
+current_dir = os.getcwd()
+
+data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
+X_exp = data.iloc[:, data.columns != 'Class']
+data = data.drop(['Time', 'Amount'], axis=1)
+X = data.iloc[:, data.columns != 'Class']
+y = data.iloc[:, data.columns == 'Class']
+mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
+rfc = load(f'{current_dir}{sep}controllers{sep}RFC.joblib')
+
+
+f = data['Class'] == 1
+f = data[f].head(3)
+
+nf = data['Class'] == 0
+nf = data[nf].head(10)
+
+# n est un dataframe qui contient 10 transactions normales et 3 frauduleuses qui vont etre utilisées comme demo dans l'interface de l'exper
+n = f.append(nf)
+n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
 
 window = Tk()
 window.geometry("1200x720")
@@ -119,16 +144,19 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
  
 v = StringVar(window, "1")
-
 values = {"MLPC " : "1",
         "RFC " : "2",}
-
 
 X = 400
 for (text, value) in values.items():
     Radiobutton(window, text = text, variable = v, value = value, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=X, y=650)
     X = X+75
 
+f = Frame(bg="white",width=0,height=0)
+df = n.head(10)
+f.place(height=500, width=750, x=400, y=100)
+pt = Table(f, dataframe=df,showtoolbar=True, showstatusbar=True)
+pt.show()
 
 window.resizable(False, False)
 window.mainloop()
