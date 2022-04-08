@@ -5,6 +5,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 from subprocess import call
 import sys
+import tkinter.font as font
 
 sep = os.path.sep
 
@@ -116,6 +117,18 @@ canvas.create_text(
     text = name,
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
+ 
+v = StringVar(window, "1")
+
+values = {"MLPC " : "1",
+        "RFC " : "2",}
+
+
+X = 400
+for (text, value) in values.items():
+    Radiobutton(window, text = text, variable = v, value = value, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=X, y=650)
+    X = X+75
+
 
 window.resizable(False, False)
 window.mainloop()
