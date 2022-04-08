@@ -1,7 +1,9 @@
+import os
 import pandas  as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from imblearn.over_sampling import RandomOverSampler
+from pip import main
 from sklearn.utils import resample
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
@@ -11,8 +13,11 @@ from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 from joblib import dump
 
+sep = os.path.sep
+current_dir = os.getcwd()
+
 # ---------------------- preprocesing data ----------------------
-data = pd.read_csv('models\\creditcard.csv', sep= ',')
+data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 data = data.drop(['Time', 'Amount'], axis=1)
 X = data.iloc[:, data.columns != 'Class']#.sample(n=110000, random_state=0)
 y = data.iloc[:, data.columns == 'Class']#.sample(n=110000, random_state=0)

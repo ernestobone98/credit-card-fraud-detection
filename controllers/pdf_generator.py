@@ -1,7 +1,7 @@
 import os
 from datetime import date, datetime
 from fpdf import FPDF, HTMLMixin
-from SMOTE import classification_report, accuracy_score, gb, y_test, y_predict
+from ml_models import classification_report, accuracy_score, gb, y_test, y_predict
 import re
 
 sep = os.path.sep
