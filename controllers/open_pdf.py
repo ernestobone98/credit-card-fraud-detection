@@ -12,7 +12,9 @@ win.title("Ouvrir rapports")
 win.config(bg = "white")
 
 def browseFiles():
-	filename = filedialog.askopenfilename(initialdir = os.getcwd(), title = "Select a pdf file", filetype = (("PDF FILE", ".pdf"), ("All files", ".txt")))
+	filename = filedialog.askopenfilename(initialdir = os.getcwd(), 
+										title = "Select a pdf file", 
+										filetype = (("PDF FILE", ".pdf")))
 	
 	variable1 = pdf.ShowPdf()
 	#Add your pdf location and width and height.
