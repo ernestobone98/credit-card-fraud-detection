@@ -10,7 +10,7 @@
 \pagestyle{fancy}
 
 \renewcommand{\headrulewidth}{1pt}
-\fancyhead[L]{Rapport de fraude}
+\fancyhead[L]{Rapport d'efficacité des modèles entraînés}
 \fancyhead[R]{Bank of daddy}
 
 \renewcommand{\footrulewidth}{1pt}
@@ -19,51 +19,58 @@
 
 \begin{document}
 \begin{center}
-\includegraphics[scale=1]{D:/projet_daddy/credit-card-fraud-detection/views/img/background_splash.png} 
+\includegraphics[scale=1]{../views/img/background_splash} 
 \end{center}
-\section{Rapport de fraude}
+\section{Rapport d'efficacité des modèles entraînés }
 \flushleft
 \bigbreak  
 \bigbreak  
-Ce rapport fait état de la fraude détectée \DTMsetdatestyle{ddmmyyyy}  le \today{}  à  \DTMcurrenttime{} sur la transaction n°\dice \dice {}  .
+Ce rapport fait état de l'efficacité des modèles entraînés \DTMsetdatestyle{ddmmyyyy}le \textbf {\today{}}  à  \textbf {\DTMcurrenttime{}}.
 \bigbreak  
-%Veuillez trouver ci-dessous les détails du résultat :
-\bigbreak  
-%ID Transaction:  \dice \dice {}  
-\bigbreak  
-%Date: \DTMsetdatestyle{ddmmyyyy}  \today{}
-\bigbreak  
-%Heure: \DTMcurrenttime{}
-\bigbreak  
-%Montant de la transaction:  \dice{}    €
-\bigbreak  
-%Client: \dice \dice{}
-\bigbreak  
-\section{Tableau récapitulatif de fraude}
+\section{Tableaux récapitulatifs}
 \flushleft
 \bigbreak  
 \bigbreak  
+\large  {Multi-Layer Perceptron Classifier:}
+\bigbreak
+\normalsize
 \begin{center}
-\begin{tabular}{| r | r | r | r | r | r | }
-\hline
-0.9997 & & & &\\
-\hline
- & precision & recall & f1-score 4 & support\\
-\hline
-0 & 1.00 & 1.00 & 1.00 & 29949 \\
-\hline
-1 & 0.86 & 0.71 & 0.77 & 51\\
+\begin{tabular}{ l | c  c  c  c  c  }
+ & \textbf{precision} & \textbf {recall} & \textbf {f1-score} & \textbf {support}\\
 \hline
 & & & &\\
-\hline
-accuracy &  & & 1.00 & 30000\\
-\hline
-macro avg & 0.93 & 0.85 & 0.89 & 30000\\
-\hline
-weighted avg & 1.00 & 1.00 & 1.00 & 30000\\
-\hline
-
+\textbf {not fraud} & 1.00 & 1.00 & 1.00 & 284315 \\
+\textbf {fraud} & 0.87 & 0.94 & 0.91 & 492\\
+& & & &\\
+\textbf {accuracy} &  & & 1.00 & 284807\\
+\textbf {macro avg} & 0.94 & 0.97 & 0.95 & 284807\\
+\textbf {weighted avg} & 1.00 & 1.00 & 1.00 & 284807\\
 \end{tabular}
 \end{center}
+\bigbreak  
+\bigbreak  
+\bigbreak  
+\large{ Random Forest Classifier:}
+\flushleft
+\bigbreak  
+\normalsize
+\begin{center}
+\begin{tabular}{ l | c  c  c  c  c  }
+ & \textbf{precision} & \textbf {recall} & \textbf {f1-score} & \textbf {support}\\
+\hline
+& & & &\\
+\textbf {not fraud} & 1.00 & 1.00 & 1.00 & 284315 \\
+\textbf {fraud} & 0.99 & 0.93 & 0.96 & 492\\
+& & & &\\
+\textbf {accuracy} &  & & 1.00 & 284807\\
+\textbf {macro avg} & 0.99 & 0.96 & 0.98 & 284807\\
+\textbf {weighted avg} & 1.00 & 1.00 & 1.00 & 284807\\
+\end{tabular}
+\end{center}
+\bigbreak  
+\section{Interprétations}
+\flushleft
+\bigbreak  
+Comme vous pouvez le distinguer sur les tableaux, \textbf{recall} est plus efficace sur le \textit{MLPC} mais \textbf{f1-score} est plus efficace sur \textit{RFC}.
 
 \end{document}
