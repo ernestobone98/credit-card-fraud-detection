@@ -142,21 +142,19 @@ canvas.create_text(
     text = name,
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
- 
-v = StringVar(window, "1")
-values = {"MLPC " : "1",
-        "RFC " : "2",}
 
-X = 400
-for (text, value) in values.items():
-    Radiobutton(window, text = text, variable = v, value = value, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=X, y=650)
-    X = X+75
 
 f = Frame(bg="white",width=0,height=0)
 df = n.head(10)
 f.place(height=500, width=750, x=400, y=100)
 pt = Table(f, dataframe=df,showtoolbar=True, showstatusbar=True)
 pt.show()
+ 
+v = StringVar(window, "1")
+
+Radiobutton(window, text = "MLPC", value = 1,variable = v, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=400, y=650)
+Radiobutton(window, text = "RFC", value = 2,variable = v, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=475, y=650)
+
 
 window.resizable(False, False)
 window.mainloop()
