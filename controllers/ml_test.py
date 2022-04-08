@@ -14,24 +14,29 @@ y = data.iloc[:, data.columns == 'Class']
 mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
 rfc = load(f'{current_dir}{sep}controllers{sep}RFC.joblib')
 
-# y_predict = mlpc.predict(X)
-# print(accuracy_score(y, y_predict))
-# print(classification_report(y, y_predict))
+def main():
+    # y_predict = mlpc.predict(X)
+    # print(accuracy_score(y, y_predict))
+    # print(classification_report(y, y_predict))
 
-# y_predict = rfc.predict(X)
-# print(accuracy_score(y, y_predict))
-# print(classification_report(y, y_predict))
+    # y_predict = rfc.predict(X)
+    # print(accuracy_score(y, y_predict))
+    # print(classification_report(y, y_predict))
 
-f = data['Class'] == 1
-f = data[f].head(3)
+    f = data['Class'] == 1
+    f = data[f].head(3)
 
-nf = data['Class'] == 0
-nf = data[nf].head(10)
+    nf = data['Class'] == 0
+    nf = data[nf].head(10)
 
-print(f)
-print(nf)
+    print(f)
+    print(nf)
 
-n = f.append(nf)
-n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
-print(n)
-print(rfc.predict(n))
+    # n est un dataframe qui contient 10 transactions normaux et 3 frauduleusse qui vont etre utiliser comme demo dans l'interface de l'exper
+    n = f.append(nf)
+    n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
+    print(n)
+    print(rfc.predict(n))
+
+if __name__ == '__main__':
+    main()
