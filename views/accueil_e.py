@@ -1,13 +1,14 @@
-from cmath import log
+# from cmath import log
 import os
-from email.mime import image
+# from email.mime import image
 from tkinter import *
-from PIL import ImageTk, Image
+# from PIL import ImageTk, Image
 from subprocess import call
 import sys
 import tkinter.font as font
-from pandastable import Table, TableModel
-from sklearn.metrics import accuracy_score, classification_report
+from tkinter import messagebox
+from pandastable import Table
+# from sklearn.metrics import accuracy_score, classification_report
 from joblib import load
 import pandas as pd
 
@@ -17,13 +18,32 @@ def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
 def create_report():
-    call(["python3", f"controllers{sep}pdf_generator.py"])
+    v = choice.get()
+    if v == 1:
+        call(['rm', f'views{sep}reports{sep}rapport_MLPC.pdf'])
+        call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
+        call(['mv', f'controllers{sep}rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
+        messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
+    elif v == 2:
+        call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
+        call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
+        call(['mv', f'controllers{sep}rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
+        messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
+    elif v == -1:
+        messagebox.showerror("Erreur", "Vous devez sélectionner un modèle avant de générer le rapport !")
 
 def log_out():
     window.destroy()
     call(["python3", f"views{sep}login.py"])
 
+def check_args(args):
+    if len(args) != 2:
+        print("Error ! \n Usage : accueil_e.py [username]")
+        sys.exit(1)
+
 current_dir = os.getcwd()
+
+check_args(sys.argv)
 
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 X_exp = data.iloc[:, data.columns != 'Class']
@@ -119,8 +139,8 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
 
 if sys.argv[1] == 'be816425':
-    img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
-    name = 'Ernesto'
+            img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
+            name = 'Ernesto'
 elif sys.argv[1] == 'gm801217':
     img3 = PhotoImage(file = f"views{sep}img{sep}marco.png")
     name = 'Marco'
@@ -150,10 +170,10 @@ f.place(height=500, width=750, x=400, y=100)
 pt = Table(f, dataframe=df,showtoolbar=True, showstatusbar=True)
 pt.show()
  
-v = StringVar(window, "1")
+choice = IntVar(window, -1)
 
-Radiobutton(window, text = "MLPC", value = 1,variable = v, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=400, y=650)
-Radiobutton(window, text = "RFC", value = 2,variable = v, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=475, y=650)
+Radiobutton(window, text = "MLPC", value = 1,variable = choice, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=400, y=650)
+Radiobutton(window, text = "RFC", value = 2,variable = choice, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=475, y=650)
 
 
 window.resizable(False, False)

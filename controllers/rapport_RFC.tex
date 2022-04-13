@@ -1,0 +1,51 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{datetime2}
+\usepackage[first=1, last=200]{lcg}
+\newcommand{\dice}{\rand\arabic{rand}}
+\pagestyle{fancy}
+
+\renewcommand{\headrulewidth}{1pt}
+\fancyhead[L]{Rapport d'efficacité des modèles entraînés}
+\fancyhead[R]{Bank of daddy}
+
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[C]{\textbf{page \thepage}} 
+
+
+\begin{document}
+\begin{center}
+\includegraphics[scale=1]{../views/img/background_splash} 
+\end{center}
+\section{Rapport d'efficacité des modèles entraînés }
+\flushleft
+\bigbreak  
+\bigbreak  
+Ce rapport fait état de l'efficacité des modèles entraînés \DTMsetdatestyle{ddmmyyyy}le \textbf {\today{}}  à  \textbf {\DTMcurrenttime{}}.
+\bigbreak  
+\section{Tableaux récapitulatifs}
+\flushleft
+\bigbreak  
+\bigbreak  
+\large{ Random Forest Classifier:}
+\flushleft
+\bigbreak  
+\normalsize
+\begin{center}
+\begin{tabular}{ l | c  c  c  c  c  }
+ & \textbf{precision} & \textbf {recall} & \textbf {f1-score} & \textbf {support}\\
+\hline
+& & & &\\
+\textbf {not fraud} & 1.00 & 1.00 & 1.00 & 284315 \\
+\textbf {fraud} & 0.99 & 0.93 & 0.96 & 492\\
+& & & &\\
+\textbf {accuracy} &  & & 1.00 & 284807\\
+\textbf {macro avg} & 0.99 & 0.96 & 0.98 & 284807\\
+\textbf {weighted avg} & 1.00 & 1.00 & 1.00 & 284807\\
+\end{tabular}
+\end{center}
+\end{document}
