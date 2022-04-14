@@ -8,3 +8,4 @@ fpdf
 tk
 tkPDFViewer
 Pillow
+pandastable
