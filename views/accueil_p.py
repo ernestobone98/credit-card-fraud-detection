@@ -2,14 +2,20 @@ from cmath import log
 import os
 from email.mime import image
 from tkinter import *
+from tkinter import messagebox
 from PIL import ImageTk, Image
 import subprocess as sub
 from subprocess import call
 
 sep = os.path.sep
 
-def create_message():
-    call(["python3", f"controllers{sep}write.py"])
+def open_message():
+    with open(f"views{sep}reports{sep}message_patron.txt") as file:
+        text = file.readlines()
+        if len(text) != 0:
+            messagebox.showinfo("Message", text)
+        else:
+            messagebox.showinfo("Pas de message", "Tout vas bien")
 
 def open_report():
     call(["python3", f"controllers{sep}open_pdf.py"])
@@ -46,7 +52,7 @@ b0 = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
-    command = create_message,
+    command = open_message,
     relief = "flat",
     background= '#262A33')
 
@@ -57,7 +63,7 @@ b0.place(
 
 canvas.create_text(
     159.0, 433.5,
-    text = "Message(s)",
+    text = "Ouvrir un message",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 

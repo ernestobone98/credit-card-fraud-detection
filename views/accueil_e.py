@@ -103,7 +103,7 @@ b0.place(
 
 canvas.create_text(
     159.0, 433.5,
-    text = "Message(s)",
+    text = "Envoyer un message",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
