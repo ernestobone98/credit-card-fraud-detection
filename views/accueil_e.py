@@ -5,7 +5,7 @@ from tkinter import *
 # from PIL import ImageTk, Image
 from subprocess import call
 import sys
-import tkinter.font as font
+# import tkinter.font as font
 from tkinter import messagebox
 from pandastable import Table
 # from sklearn.metrics import accuracy_score, classification_report
@@ -22,12 +22,14 @@ def create_report():
     if v == 1:
         call(['rm', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
-        call(['mv', f'controllers{sep}rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
+        call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
+        call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
         messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
     elif v == 2:
         call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
-        call(['mv', f'controllers{sep}rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
+        call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
+        call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
         messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
     elif v == -1:
         messagebox.showerror("Erreur", "Vous devez sélectionner un modèle avant de générer le rapport !")
@@ -45,6 +47,7 @@ current_dir = os.getcwd()
 
 check_args(sys.argv)
 
+##################################################################
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 X_exp = data.iloc[:, data.columns != 'Class']
 data = data.drop(['Time', 'Amount'], axis=1)
@@ -60,9 +63,10 @@ f = data[f].head(3)
 nf = data['Class'] == 0
 nf = data[nf].head(10)
 
-# n est un dataframe qui contient 10 transactions normales et 3 frauduleuses qui vont etre utilisées comme demo dans l'interface de l'exper
+# n est un dataframe qui contient 10 transactions normales et 3 frauduleuses qui vont etre utilisées comme demo dans l'interface de l'expert
 n = f.append(nf)
 n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
+#################################################################
 
 window = Tk()
 window.geometry("1200x720")
