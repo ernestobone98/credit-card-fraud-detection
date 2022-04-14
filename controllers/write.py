@@ -6,7 +6,7 @@ import os
 sep = os.path.sep
 
 def export():
-    with open(f"views{sep}reports{sep}message_client.txt", 'w') as f:
+    with open(f"views{sep}reports{sep}message_patron.txt", 'w') as f:
         f.write(textbox.get("1.0", END).strip())
 
 win = Tk()
