@@ -78,6 +78,7 @@ def center(win):
 
 def main_window():
     global entry0, entry1, window
+    progress_bar.stop()
     splash.destroy()
     window = Tk()
     window.geometry("520x550")
