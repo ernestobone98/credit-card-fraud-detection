@@ -9,3 +9,4 @@ tk
 tkPDFViewer
 Pillow
 pandastable
+cryptocompare
