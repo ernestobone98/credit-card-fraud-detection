@@ -1,11 +1,12 @@
-from cmath import log
+from multiprocessing import Value
 import os
-from email.mime import image
 from tkinter import *
 from tkinter import messagebox
+import tkinter
 from PIL import ImageTk, Image
 import subprocess as sub
 from subprocess import call
+from tkinter.font import Font
 
 sep = os.path.sep
 
@@ -19,14 +20,17 @@ def open_message():
 
 def open_report():
     call(["python3", f"controllers{sep}open_pdf.py"])
-    # cmd = ['ls', f'views{sep}reports{sep}']
-    # report_name = sub.check_output(cmd).decode('utf-8').split('\n')[-2]
-    # rapport = f"views{sep}reports{sep}{report_name}"  # on doit changer et faire attention car le nom change donc voir pour le nom des rapports
-    # os.system(f'xdg-open {rapport}')
 
 def log_out():
     window.destroy()
     sub.call(["python3", f"views{sep}login.py"])
+
+def delete_item():
+	my_list.delete(ANCHOR)
+
+def add_item():
+	my_list.insert(END, my_entry.get())
+	my_entry.delete(0, END)
 
 window = Tk()
 window.geometry("1200x720")
@@ -121,6 +125,202 @@ canvas.create_text(
     text = "Benjamin",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
+
+###########################################################################################################################################
+
+#################################################################################################
+### -------------------------------------- TO DO LIST  -------------------------------------- ###
+#################################################################################################
+
+titre_section = tkinter.Label(text="TO DO LIST ", background="white", font=("Times New Roman", 25, 'underline'), anchor='w')
+titre_section.place(height=50, width=400, x=350, y=100)
+
+my_font = Font(family="Helvetica",	size=20)
+
+my_frame = Frame(window).place(height=200, width=700, x=350, y=150)
+
+my_list = Listbox(my_frame,
+	font=my_font,
+	width=25,
+	height=5,
+	bg='#dedede',
+	bd=5,
+	fg="black",
+	highlightthickness=2,
+    selectbackground="#d4b356",
+    selectmod = 'browse',
+	activestyle="none")
+
+my_list.place(height=200, width=700, x=350, y=150)
+
+my_entry = Entry(window, font=("Times New Roman", 20), width=26)
+my_entry.place(height=30, width=500, x=450, y=365)
+
+add_button = Button(text="Add Item", command=add_item, background='#d4b356').place(height=30, width=75, x=1070, y=250)
+delete_button = Button(text="Delete Item", command=delete_item, background='#d4b356').place(height=30, width=75, x=1070, y=290)
+
+
+###########################################################################################################################################
+
+##################################################################################################
+### ------------------------------------- PRINT BITCOIN  ------------------------------------- ### 
+##################################################################################################  
+
+bitcoin_frame = Frame(window).place(height=250, width=250, x=900, y=450)
+
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import cryptocompare
+from datetime import datetime 
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+# def print_bitcoin():
+#     def get_crypto_price(cryptocurrency,currency):
+#         return cryptocompare.get_price(cryptocurrency,currency)[cryptocurrency][currency]
+
+#     def get_crypto_name(cryptocurrency):
+#         return cryptocompare.get_coin_list()[cryptocurrency]['FullName']
+
+#     def animate(i):
+#         x_vals.append(datetime.now())
+#         y_vals.append(get_crypto_price('BTC','EUR'))
+#         # fig.plot(x_vals, y_vals)
+#         line.set_data(x_vals, y_vals)
+#         #return line
+
+#         plt.cla()
+#         plt.title(get_crypto_name('BTC') + ' Price Live Plotting')
+#         plt.gcf().canvas.set_window_title('Live Plotting Cryptocurrency')
+        
+#         fig.xlabel('Date')
+#         fig.ylabel('Price(€)')
+#         fig.plot_date(x_vals,y_vals,linestyle="solid",ms=0)
+#         fig.tight_layout()
+
+#     fig = plt.Figure()
+#     plt.style.use('seaborn')
+
+#     ax = fig.add_subplot(xlim=(0, 2), ylim=(-1, 1))
+#     line, = ax.plot([], [], lw=2)
+
+#     x_vals = []
+#     y_vals = []
+
+#     canvas = FigureCanvasTkAgg(fig, master=window)
+#     canvas.get_tk_widget().grid(column=0,row=1)
+    
+#     ani = FuncAnimation(fig, animate, interval=1000)
+    
+
+
+##################################################################################################
+### ------------------------------------- TABLEAU COIN   ------------------------------------- ### 
+##################################################################################################
+
+os.environ['CRYPTOCOMPARE_API_KEY'] = '61aa8867b5734768ef4b2e53a3fc00c09cf872807ea305db867f8ff54f8fc2b8'
+
+
+import cryptocompare
+import threading
+
+# Bitcoin	
+# Ethereum	
+# XRP
+# Terra
+# Dogecoin
+
+currency_frame = Frame(window, background="white").place(height=250, width=500, x=350, y=450)
+
+def get_crypto_price(cryptocurrency,currency):
+    return cryptocompare.get_price(cryptocurrency,currency)[cryptocurrency][currency]
+
+def get_crypto_name(cryptocurrency):
+    return cryptocompare.get_coin_list()[cryptocurrency]['FullName']
+
+def print_currencies():
+    while True:
+        # get values
+        btc = get_crypto_price('BTC', 'EUR')
+        eth = get_crypto_price('ETH', 'EUR')
+        xrp = get_crypto_price('XRP', 'EUR')
+        terra = get_crypto_price('LUNA', 'EUR')
+        doge = get_crypto_price('DOGE', 'EUR')
+
+        ### print values ###
+
+        #btc
+        btc_value = tkinter.Label(text=str(btc)+' €', background="white", font=("Times New Roman", 18), anchor='w')
+        btc_value.place(height=50, width=400, x=475, y=470)
+
+        #eth
+        eth_value = tkinter.Label(text=str(eth)+' €', background="white", font=("Times New Roman", 18), anchor='w')
+        eth_value.place(height=50, width=400, x=475, y=510)
+
+        #xrp
+        xrp_value = tkinter.Label(text=str(xrp)+' €', background="white", font=("Times New Roman", 18), anchor='w')
+        xrp_value.place(height=50, width=400, x=475, y=550)
+
+        #terra
+        terra_value = tkinter.Label(text=str(terra)+' €', background="white", font=("Times New Roman", 18), anchor='w')
+        terra_value.place(height=50, width=400, x=475, y=590)
+
+        #doge
+        dogecoin_value = tkinter.Label(text=str(doge)+' €', background="white", font=("Times New Roman", 18), anchor='w')
+        dogecoin_value.place(height=50, width=400, x=475, y=630)
+
+# BTC
+btc_text = tkinter.Label(text="Bitcoin", background="white", font=("Times New Roman", 18), anchor='w')
+btc_text.place(height=50, width=400, x=370, y=470)
+
+btc = f"views{sep}img{sep}btc.png"
+img_btc = PhotoImage(file = btc)
+btc_label = Label(image = img_btc, background="white")
+btc_label.place(x = 345, y = 485, height = 15, width = 15)
+
+# ETH
+eth_text = tkinter.Label(text="Ethereum", background="white", font=("Times New Roman", 18), anchor='w')
+eth_text.place(height=50, width=400, x=370, y=510)
+
+eth = f"views{sep}img{sep}eth.png"
+img_eth = PhotoImage(file = eth)
+eth_label = Label(image = img_eth, background="white")
+eth_label.place(x = 345, y = 525, height = 15, width = 15)
+
+# XRP
+xrp_text = tkinter.Label(text="XRP", background="white", font=("Times New Roman", 18), anchor='w')
+xrp_text.place(height=50, width=400, x=370, y=550)
+
+xrp = f"views{sep}img{sep}xrp.png"
+img_xrp = PhotoImage(file = xrp)
+xrp_label = Label(image = img_xrp, background="white")
+xrp_label.place(x = 345, y = 565, height = 15, width = 15)
+
+# TERRA
+terra_text = tkinter.Label(text="Terra", background="white", font=("Times New Roman", 18), anchor='w')
+terra_text.place(height=50, width=400, x=370, y=590)
+
+terra = f"views{sep}img{sep}terra.png"
+img_terra = PhotoImage(file = terra)
+terra_label = Label(image = img_terra, background="white")
+terra_label.place(x = 345, y = 605, height = 15, width = 15)
+
+# DOGE
+dogecoin_text = tkinter.Label(text="Dogecoin", background="white", font=("Times New Roman", 18), anchor='w')
+dogecoin_text.place(height=50, width=400, x=370, y=630)
+
+doge = f"views{sep}img{sep}doge.png"
+img_doge = PhotoImage(file = doge)
+doge_label = Label(image = img_doge, background="white")
+doge_label.place(x = 345, y = 645, height = 15, width = 15)
+
+###################################################################################################################################
+
+t1 = threading.Thread(target=print_currencies, name="Tableau de valeurs")
+t1.start()
+
+# t2 = threading.Thread(target=print_bitcoin, name='Bitcoin Graph')
+# t2.start()
+
 
 window.resizable(False, False)
 window.mainloop()
