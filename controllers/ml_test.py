@@ -1,14 +1,17 @@
+from http import client
 import os
 from sklearn.metrics import accuracy_score, classification_report
 from joblib import load
 import pandas as pd
+import random
 
 sep = os.path.sep
 current_dir = os.getcwd()
 
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
+clients = []
 X_exp = data.iloc[:, data.columns != 'Class']
-data = data.drop(['Time', 'Amount'], axis=1)
+data = data.drop(['Time', 'Amount', 'ID'], axis=1)
 X = data.iloc[:, data.columns != 'Class']
 y = data.iloc[:, data.columns == 'Class']
 mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
@@ -31,6 +34,12 @@ def main():
 
     print(f)
     print(nf)
+
+    # for i in range(len(data)):
+    #     n = random.randint(1,100)
+    #     clients.append(n)
+    # data['ID'] = clients
+    # data.to_csv("models\\creditcard.csv")
 
     # n est un dataframe qui contient 10 transactions normaux et 3 frauduleusse qui vont etre utiliser comme demo dans l'interface de l'exper
     n = f.append(nf)
