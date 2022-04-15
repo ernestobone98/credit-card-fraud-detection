@@ -20,3 +20,5 @@ Here is a list of different usernames for each group member:
 - Benjamin Bernaud = benj-b / bbernaud
 - Ernesto Bone Bravo = ernestobone98
 (the others seem unchanged)
+
+Also, when whe programmed together we put the initials of each name on the commit description (ex : BBG = Bernaud / Bone / Gazzera)
