@@ -238,7 +238,10 @@ def get_crypto_name(cryptocurrency):
     return cryptocompare.get_coin_list()[cryptocurrency]['FullName']
 
 def print_currencies():
+    global stop
     while True:
+        if stop:
+            break
         # get values
         btc = get_crypto_price('BTC', 'EUR')
         eth = get_crypto_price('ETH', 'EUR')
@@ -314,7 +317,7 @@ doge_label = Label(image = img_doge, background="white")
 doge_label.place(x = 345, y = 645, height = 15, width = 15)
 
 ###################################################################################################################################
-
+stop = False
 t1 = threading.Thread(target=print_currencies, name="Tableau de valeurs")
 t1.start()
 
@@ -324,3 +327,6 @@ t1.start()
 
 window.resizable(False, False)
 window.mainloop()
+
+stop = True
+t1.join()
