@@ -4,65 +4,59 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formatdate
 
-#############Setting up the SMTP configuration
+##############################################################################################
+### ------------------------------------ CONFIG SMTP  ------------------------------------ ### 
+##############################################################################################  
 
-smtp_server = "smtp.gmail.com" # for Gmail
-port = 587  # For starttls
+smtp_server = "smtp.gmail.com" 
+port = 587  
 
-sender_email = "bankdaddys@gmail.com"  # email address used to generate password ---bankdaddys@gmail.com 
-receiver_email = ["quentin2908@gmail.com", "marcogzapro@gmail.com"] # a list of recipients ,"benjamin.bernaud@etu.univ-cotedazur.fr","marco.gazzera@etu.univ-cotedazur.fr","quentin.scordo@etu.univ-cotedazur.fr","ernesto.bone-bravo@etu.univ-cotedazur.fr"  ,"marcogzapro@gmail.com" , "chavy98@gmail.com"
-password = "fmuieqauszmbeoix" # the 16 code generated   ---fmuieqauszmbeoix 
+sender_email = "bankdaddys@gmail.com"  
+receiver_email = ["quentin2908@gmail.com", "marcogzapro@gmail.com"]
+password = "fmuieqauszmbeoix" 
 
-# if you store credentials as env variables 
-# password = os.environ['EMAIL_CRED']
-
-
-
-#############Constructing the Email
+############################################################################################
+### ------------------------------------ EMAIL BODY ------------------------------------ ### 
+############################################################################################  
 
 msg = MIMEMultipart()
-msg["Subject"] = "Alerte Fraude"
+msg["Subject"] = "Alerte d'insécurité"
 msg["From"] = sender_email
 msg['To'] = ", ".join(receiver_email)
-#date = formatdate(localtime=True)
 
 ## Plain text
-text = """"""
+text = ""
 
 body_text = MIMEText(text, 'plain')  
-msg.attach(body_text)  # attaching the text body into msg
+msg.attach(body_text) 
 
-
-## HTML 
-html = """\
+html = """
 <html>
   <body>
     <p style="color:black;"> Bonjour Madame, Monsieur, </p>
     <p style="color:black;">
     Ce message vous informe qu'une fraude à été détectée sur votre compte bancaire à la Bank of Daddys. <br>
-    Notre équipe y travaille déjà, si vous souhaiter plus d'information, n'hésitez pas à nous recontacter.
+    Notre équipe y travaille déjà, si vous souhaitez plus d'informations, n'hésitez pas à nous recontacter.
     </p>
     <p style="color:black;">
     Merci pour votre compréhension, <br>
     Bien cordialement, le Departement de Protection des Clients.
     </p>
-    <p style="color:black;",>
+    <p style="color:black;">
     <i><strong>28, Avenue Valrose <br>
     06108 Nice Cedex 2 <br>
-    tel: 04 89 15 00 00</i></strong>
+    Téléphone: 04 89 15 00 00</strong></i>
     </p>
   </body>
 </html>
 """
 
 body_html = MIMEText(html, 'html')
-msg.attach(body_html)  # attaching to msg
+msg.attach(body_html)  
 
-
-
-############Sending the Email
-
-
+############################################################################################
+### ------------------------------------ SEND EMAIL ------------------------------------ ### 
+############################################################################################  
 
 context = ssl.create_default_context()
 # Try to log in to server and send email 
