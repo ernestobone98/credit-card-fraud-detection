@@ -10,3 +10,4 @@ tkPDFViewer
 Pillow
 pandastable
 cryptocompare
+tkcalendar
