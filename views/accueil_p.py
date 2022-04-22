@@ -67,7 +67,7 @@ b0.place(
 
 canvas.create_text(
     159.0, 433.5,
-    text = "Ouvrir un message",
+    text = "Open message",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
@@ -103,7 +103,7 @@ b2.place(
 
 canvas.create_text(
     161.0, 585.5,
-    text = "Ouvrir un rapport",
+    text = "Open rapport",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
@@ -162,57 +162,19 @@ delete_button = Button(text="Delete Item", command=delete_item, background='#d4b
 
 ###########################################################################################################################################
 
-##################################################################################################
-### ------------------------------------- PRINT BITCOIN  ------------------------------------- ### 
-##################################################################################################  
+#################################################################################################
+### ------------------------------------ PRINT CALENDAR  ------------------------------------ ### 
+#################################################################################################  
 
-bitcoin_frame = Frame(window).place(height=250, width=250, x=900, y=450)
+from tkcalendar import Calendar
 
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-import cryptocompare
-from datetime import datetime 
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+cal = Calendar(selectmode = 'day').place(height=200, width=250, x = 800, y = 460)
 
-# def print_bitcoin():
-#     def get_crypto_price(cryptocurrency,currency):
-#         return cryptocompare.get_price(cryptocurrency,currency)[cryptocurrency][currency]
+def grad_date():
+	date.config(text = "Selected Date is: " + cal.get_date())
 
-#     def get_crypto_name(cryptocurrency):
-#         return cryptocompare.get_coin_list()[cryptocurrency]['FullName']
-
-#     def animate(i):
-#         x_vals.append(datetime.now())
-#         y_vals.append(get_crypto_price('BTC','EUR'))
-#         # fig.plot(x_vals, y_vals)
-#         line.set_data(x_vals, y_vals)
-#         #return line
-
-#         plt.cla()
-#         plt.title(get_crypto_name('BTC') + ' Price Live Plotting')
-#         plt.gcf().canvas.set_window_title('Live Plotting Cryptocurrency')
-        
-#         fig.xlabel('Date')
-#         fig.ylabel('Price(€)')
-#         fig.plot_date(x_vals,y_vals,linestyle="solid",ms=0)
-#         fig.tight_layout()
-
-#     fig = plt.Figure()
-#     plt.style.use('seaborn')
-
-#     ax = fig.add_subplot(xlim=(0, 2), ylim=(-1, 1))
-#     line, = ax.plot([], [], lw=2)
-
-#     x_vals = []
-#     y_vals = []
-
-#     canvas = FigureCanvasTkAgg(fig, master=window)
-#     canvas.get_tk_widget().grid(column=0,row=1)
-    
-#     ani = FuncAnimation(fig, animate, interval=1000)
-    
-
-
+date = Label(text = "").place(height=200, x = 800, y = 460)
+  
 ##################################################################################################
 ### ------------------------------------- TABLEAU COIN   ------------------------------------- ### 
 ##################################################################################################
@@ -229,7 +191,7 @@ import threading
 # Terra
 # Dogecoin
 
-currency_frame = Frame(window, background="white").place(height=250, width=500, x=350, y=450)
+currency_frame = Frame(window, background="white").place(height=250, width=350, x=310, y=450)
 
 def get_crypto_price(cryptocurrency,currency):
     return cryptocompare.get_price(cryptocurrency,currency)[cryptocurrency][currency]
@@ -253,23 +215,23 @@ def print_currencies():
 
         #btc
         btc_value = tkinter.Label(text=str(btc)+' €', background="white", font=("Times New Roman", 18), anchor='w')
-        btc_value.place(height=50, width=400, x=475, y=470)
+        btc_value.place(height=50, width=200, x=475, y=470)
 
         #eth
         eth_value = tkinter.Label(text=str(eth)+' €', background="white", font=("Times New Roman", 18), anchor='w')
-        eth_value.place(height=50, width=400, x=475, y=510)
+        eth_value.place(height=50, width=200, x=475, y=510)
 
         #xrp
         xrp_value = tkinter.Label(text=str(xrp)+' €', background="white", font=("Times New Roman", 18), anchor='w')
-        xrp_value.place(height=50, width=400, x=475, y=550)
+        xrp_value.place(height=50, width=200, x=475, y=550)
 
         #terra
         terra_value = tkinter.Label(text=str(terra)+' €', background="white", font=("Times New Roman", 18), anchor='w')
-        terra_value.place(height=50, width=400, x=475, y=590)
+        terra_value.place(height=50, width=200, x=475, y=590)
 
         #doge
         dogecoin_value = tkinter.Label(text=str(doge)+' €', background="white", font=("Times New Roman", 18), anchor='w')
-        dogecoin_value.place(height=50, width=400, x=475, y=630)
+        dogecoin_value.place(height=50, width=200, x=475, y=630)
 
 # BTC
 btc_text = tkinter.Label(text="Bitcoin", background="white", font=("Times New Roman", 18), anchor='w')
@@ -316,14 +278,11 @@ img_doge = PhotoImage(file = doge)
 doge_label = Label(image = img_doge, background="white")
 doge_label.place(x = 345, y = 645, height = 15, width = 15)
 
+
 ###################################################################################################################################
 stop = False
 t1 = threading.Thread(target=print_currencies, name="Tableau de valeurs")
 t1.start()
-
-# t2 = threading.Thread(target=print_bitcoin, name='Bitcoin Graph')
-# t2.start()
-
 
 window.resizable(False, False)
 window.mainloop()
