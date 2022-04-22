@@ -1,14 +1,9 @@
-# from cmath import log
 import os
-# from email.mime import image
 from tkinter import *
-# from PIL import ImageTk, Image
 from subprocess import call
 import sys
-# import tkinter.font as font
 from tkinter import messagebox
 from pandastable import Table
-# from sklearn.metrics import accuracy_score, classification_report
 from joblib import load
 import pandas as pd
 
@@ -49,8 +44,9 @@ check_args(sys.argv)
 
 ##################################################################
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
+clients = []
 X_exp = data.iloc[:, data.columns != 'Class']
-data = data.drop(['Time', 'Amount'], axis=1)
+data = data.drop(['Time', 'Amount', 'ID'], axis=1)
 X = data.iloc[:, data.columns != 'Class']
 y = data.iloc[:, data.columns == 'Class']
 mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
@@ -103,7 +99,7 @@ b0.place(
 
 canvas.create_text(
     159.0, 433.5,
-    text = "Envoyer un message",
+    text = "Send message",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
@@ -138,7 +134,7 @@ b2.place(
 
 canvas.create_text(
     161.0, 585.5,
-    text = "Génerer un rapport",
+    text = "Generate report",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 

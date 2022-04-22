@@ -103,7 +103,7 @@ b2.place(
 
 canvas.create_text(
     161.0, 585.5,
-    text = "Open rapport",
+    text = "Open report",
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
