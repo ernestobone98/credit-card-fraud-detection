@@ -9,9 +9,9 @@ sep = os.path.sep
 current_dir = os.getcwd()
 
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
-new_data = data
+new_data = data.drop(['Time'], axis=1)
 data = data.drop(['Time', 'Amount'], axis=1)
-clients = []
+clients = pd.read_csv(f'{current_dir}{sep}models{sep}clients.csv', sep= ',')
 X_exp = data.iloc[:, data.columns != 'Class']
 X = data.iloc[:, data.columns != 'Class']
 y = data.iloc[:, data.columns == 'Class']
@@ -27,15 +27,15 @@ def main():
     # print(accuracy_score(y, y_predict))
     # print(classification_report(y, y_predict))
 
-    f = data['Class'] == 1
-    f = data[f].head(3)
+    f = new_data['Class'] == 1
+    f = new_data[f].head(3)
 
-    nf = data['Class'] == 0
-    nf = data[nf].head(10)
+    nf = new_data['Class'] == 0
+    nf = new_data[nf].head(12)
 
     print(f)
     print(nf)
-    print(data.head())
+    print(new_data.head())
     # for i in range(len(new_data)):
     #     n = random.randint(1,100)
     #     clients.append(n)
@@ -45,11 +45,20 @@ def main():
     # print(new_data.head())
     # new_data.to_csv("models\\creditcard.csv")
 
-    # n est un dataframe qui contient 10 transactions normaux et 3 frauduleusse qui vont etre utiliser comme demo dans l'interface de l'exper
+    # n est un dataframe qui contient 12 transactions normaux et 3 frauduleusse qui vont etre utiliser comme demo dans l'interface de l'exper
     n = f.append(nf)
-    n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
+    n = n.iloc[:, new_data.columns != 'Class'].sample(15).reset_index(drop=True)
+    predictions = rfc.predict(n.drop(['Amount', 'ID'], axis=1))
+    print(predictions)
     print(n)
-    print(rfc.predict(n))
+    n['Class'] = predictions
+    print(n)
+
+    frauds = n[(n['Class'] == 1)]               # selecting frauds
+    print(frauds['ID'].values.tolist())
+    print(clients.head())
+    victimes = clients[clients['ID'].isin(frauds['ID'].values.tolist())]
+    print(victimes)
 
 if __name__ == '__main__':
     main()
