@@ -12,7 +12,7 @@ smtp_server = "smtp.gmail.com"
 port = 587  
 
 sender_email = "bankdaddys@gmail.com"  
-receiver_email = ["quentin2908@gmail.com", "marcogzapro@gmail.com"]
+receiver_email = ["marcogzapro@gmail.com"]
 password = "fmuieqauszmbeoix" 
 
 ############################################################################################
@@ -35,12 +35,11 @@ html = """
   <body>
     <p style="color:black;"> Bonjour Madame, Monsieur, </p>
     <p style="color:black;">
-    Ce message vous informe qu'une fraude à été détectée sur votre compte bancaire à la Bank of Daddys. <br>
-    Notre équipe y travaille déjà, si vous souhaitez plus d'informations, n'hésitez pas à nous recontacter.
+    Nous vous informons qu'une fraude a été détectée sur votre compte Bank of Daddys. <br>
+    Rassurez-vous, notre équipe d'experts y travaille déjà. Nous sommes à votre dispotion pour toutes informations supplémentaires , n'hésitez pas à nous contacter.
     </p>
     <p style="color:black;">
-    Merci pour votre compréhension, <br>
-    Bien cordialement, le Departement de Protection des Clients.
+    Bien cordialement, le Département Protection Clients.
     </p>
     <p style="color:black;">
     <i><strong>28, Avenue Valrose <br>
