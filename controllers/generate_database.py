@@ -25,23 +25,23 @@ name_man = ["Martin","Bernard","Thomas","Petit","Robert","Richard","Durand","Dub
         "Pierre","Benoit","Rey","Leclerc","Payet","Rolland","Leclerc","Guillaume","Lecomte"]
 
 jobs = ["Agriculteurs exploitants","Artisans","Commercants","Chefs d'entreprise","Cadres",
-               "Professions intellectuelles superieures","Professions intermédiaires","Employes",
-               "Ouvriers","Personne sans activité professionnelle"]
+               "Professions intellectuelles superieures","Professions intermediaires","Employes",
+               "Ouvriers","Personne sans activite professionnelle"]
 
 cities = ["Paris","Marseille","Lyon","Toulouse","Nice","Nantes","Montpellier","Strasbourg",
-            "Bordeaux","Lille","Rennes","Reims","Toulon","Saint-Étienne","Le Havre","Grenoble",
-            "Dijon","Angers","Villeurbanne","Saint-Denis","Nîmes","Clermont-Ferrand","Le Mans",
+            "Bordeaux","Lille","Rennes","Reims","Toulon","Saint-etienne","Le Havre","Grenoble",
+            "Dijon","Angers","Villeurbanne","Saint-Denis","Nimes","Clermont-Ferrand","Le Mans",
             "Aix-en-Provence","Brest","Tours","Amiens","Limoges","Annecy","Boulogne-Billancourt",
-            "Perpignan","Besançon","Metz","Orléans","Saint-Denis","Rouen","Argenteuil","Montreuil",
+            "Perpignan","Besancon","Metz","Orleans","Saint-Denis","Rouen","Argenteuil","Montreuil",
             "Mulhouse","Caen","Nancy","Saint-Paul","Roubaix","Tourcoing","Nanterre","Vitry-sur-Seine",
-            "Créteil","Avignon","Poitiers","Aubervilliers","Dunkerque","Aulnay-sous-Bois","Colombes",
-            "Asnières-sur-Seine","Versailles","Saint-Pierre","Courbevoie","Le Tampon","Cherbourg-en-Cotentin",
-            "Fort-de-France","Rueil-Malmaison","Béziers","Champigny-sur-Marne","Pau","La Rochelle",
-            "Saint-Maur-des-Fossés","Cannes","Calais","Antibes","Drancy","Mamoudzou","Ajaccio","Mérignac",
-            "Saint-Nazaire","Colmar","Issy-les-Moulineaux","Noisy-le-Grand","Évry-Courcouronnes","Vénissieux",
+            "Creteil","Avignon","Poitiers","Aubervilliers","Dunkerque","Aulnay-sous-Bois","Colombes",
+            "Asnieres-sur-Seine","Versailles","Saint-Pierre","Courbevoie","Le Tampon","Cherbourg-en-Cotentin",
+            "Fort-de-France","Rueil-Malmaison","Beziers","Champigny-sur-Marne","Pau","La Rochelle",
+            "Saint-Maur-des-Fosses","Cannes","Calais","Antibes","Drancy","Mamoudzou","Ajaccio","Merignac",
+            "Saint-Nazaire","Colmar","Issy-les-Moulineaux","Noisy-le-Grand","evry-Courcouronnes","Venissieux",
             "Cergy","Levallois-Perret","Valence","Bourges","Pessac","Cayenne","Ivry-sur-Seine","Quimper",
             "La Seyne-sur-Mer","Antony","Villeneuve-d'Ascq","Clichy","Troyes","Montauban","Neuilly-sur-Seine",
-            "Pantin","Niort","Chambéry","Sarcelles","Le Blanc-Mesnil","Lorient"]
+            "Pantin","Niort","Chambery","Sarcelles","Le Blanc-Mesnil","Lorient"]
 
 first_name_woman = ["Jade","Louise","Emma","Alice","Ambre","Lina","Rose","Chloe","Mia","Lea",
                     "Anna","Mila","Julia","Romy","Lou","Ines","Lena","Agathe","Juliette","Inaya",
@@ -84,7 +84,7 @@ def random_info_creation(s, n): # s = man or woman / n = id
         name = random.choice(name_woman)
         age = random.choice([i for i in range(18,87)])
         
-    job = 'Retraité' if age >= 66 else random.choice(jobs)
+    job = 'Retraite' if age >= 66 else random.choice(jobs)
     city = random.choice(cities)
     number = create_phones()
     id = n
@@ -107,6 +107,6 @@ if __name__ == '__main__':
     print(len(client_list), client_list)
     # Information writing
     with open(f_out, "w") as text_file:
-        text_file.write("ID; Prénom; Nom; Age; Job; Ville; Tel; Adresse mail\n")
+        text_file.write("ID; Prenom; Nom; Age; Job; Ville; Tel; Adresse mail\n")
         for i in range(m_client + w_client):
             text_file.write('; '.join(map(str, client_list[i])) + "\n")

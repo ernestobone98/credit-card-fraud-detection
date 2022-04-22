@@ -57,7 +57,7 @@ def main():
     frauds = n[(n['Class'] == 1)]               # selecting frauds
     print(frauds['ID'].values.tolist())
     print(clients.head())
-    victimes = clients[clients['ID'].isin(frauds['ID'].values.tolist())]
+    victimes = clients[clients['ID'].isin(frauds['ID'].values.tolist())].reset_index(drop=True)
     print(victimes)
 
 if __name__ == '__main__':
