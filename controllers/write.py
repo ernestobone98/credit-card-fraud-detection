@@ -10,8 +10,8 @@ def export():
         f.write(textbox.get("1.0", END).strip())
 
 win = Tk()
-win.title("Ecrire votre message")
+win.title("Write your message for the boss")
 textbox = ScrolledText(win)
 textbox.pack(fill=BOTH, expand=YES)
-Button(win, text="Export", command=export).pack(fill=X)
+Button(win, text="Send", command=export).pack(fill=X)
 win.mainloop()
