@@ -18,7 +18,7 @@ current_dir = os.getcwd()
 
 # ---------------------- preprocesing data ----------------------
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
-data = data.drop(['Time', 'Amount', 'ID'], axis=1)
+data = data.drop(['Time', 'Amount'], axis=1)
 X = data.iloc[:, data.columns != 'Class']#.sample(n=110000, random_state=0)
 y = data.iloc[:, data.columns == 'Class']#.sample(n=110000, random_state=0)
 
