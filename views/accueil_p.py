@@ -12,7 +12,8 @@ sep = os.path.sep
 
 def open_message():
     with open(f"views{sep}reports{sep}message_patron.txt") as file:
-        text = file.readlines()
+        text = ''.join(i for i in file.readlines())
+        print(type(text), text)
         if len(text) != 0:
             messagebox.showinfo("Message:", text)
         else:
