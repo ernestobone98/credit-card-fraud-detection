@@ -33,6 +33,19 @@ with open("109111116321001013211297115115101.txt", "w") as txtfile:
     print(": {}".format(password_e2_h), file=txtfile)
     print(": {}".format(password_p_h), file=txtfile)
 
+def showMessage(message, type='info', timeout=2500): #function that shows a message during a certain time
+    root = Tk()
+    root.withdraw()
+    try:
+        root.after(timeout, root.destroy)
+        if type == 'info':
+            messagebox.showinfo('Info', message, master=root)
+        elif type == 'warning':
+            messagebox.showwarning('Warning', message, master=root)
+        elif type == 'error':
+            messagebox.showerror('Error', message, master=root)
+    except:
+        pass
 
 # ------------- Login session: with connection case ------------- #
 def login():
@@ -45,7 +58,7 @@ def login():
         messagebox.showerror("", "You must enter characters")
         entry0.delete("0", "end")
     elif (user_name == expert1 and password == password_e1) or (user_name == expert2 and password == password_e2) or (user_name == patron and password == password_p) :
-        messagebox.showinfo("", "Current connection")
+        showMessage("Connecting...")
         entry0.delete("0", "end")
         entry1.delete("0", "end")
         window.destroy()
