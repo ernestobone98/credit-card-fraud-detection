@@ -2,7 +2,15 @@ import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.utils import formatdate
+# from email.utils import formatdate
+import sys
+
+def check_args(args):
+    if len(args) != 5:
+        print("Error ! \n Usage : send_email_fraude.py [Surname] [Name] [Mail] [Client_ID]")
+        sys.exit(1)
+
+check_args(sys.argv)
 
 ##############################################################################################
 ### ------------------------------------ CONFIG SMTP  ------------------------------------ ### 
@@ -12,8 +20,12 @@ smtp_server = "smtp.gmail.com"
 port = 587  
 
 sender_email = "bankdaddys@gmail.com"  
-receiver_email = ["marcogzapro@gmail.com"]
+receiver_email = str(sys.argv[3])    #["marcogzapro@gmail.com"]
 password = "fmuieqauszmbeoix" 
+
+surname = sys.argv[1]
+name = sys.argv[2]
+ID = sys.argv[4]
 
 ############################################################################################
 ### ------------------------------------ EMAIL BODY ------------------------------------ ### 
@@ -22,7 +34,7 @@ password = "fmuieqauszmbeoix"
 msg = MIMEMultipart()
 msg["Subject"] = "Alerte d'insécurité"
 msg["From"] = sender_email
-msg['To'] = ", ".join(receiver_email)
+msg['To'] = "".join(receiver_email)
 
 ## Plain text
 text = ""
@@ -30,13 +42,15 @@ text = ""
 body_text = MIMEText(text, 'plain')  
 msg.attach(body_text) 
 
-html = """
+html = f"""
 <html>
   <body>
-    <p style="color:black;"> Bonjour Madame, Monsieur, </p>
+    <p style="color:black;"> Bonjour Madame, Monsieur {surname} {name}, </p>
     <p style="color:black;">
     Nous vous informons qu'une fraude a été détectée sur votre compte Bank of Daddys. <br>
-    Rassurez-vous, notre équipe d'experts y travaille déjà. Nous sommes à votre dispotion pour toutes informations supplémentaires , n'hésitez pas à nous contacter.
+    Rassurez-vous, notre équipe d'experts y travaille déjà ! <br>
+    Nous sommes à votre disposition pour toutes informations complémentaires, 
+    n'hésitez pas à nous contacter en nous fournissant votre identifiant client (pour rappel, votre identifiant est le n°{int(ID)}).
     </p>
     <p style="color:black;">
     Bien cordialement, le Département Protection Clients.
