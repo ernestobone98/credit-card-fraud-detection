@@ -12,6 +12,9 @@ sep = os.path.sep
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
+def send_mail():
+    call(["python3", f"controllers{sep}send_email_fraude.py"])
+
 def create_report():
     v = choice.get()
     if v == 1:
@@ -19,12 +22,14 @@ def create_report():
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
         call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
+        send_mail()
         messagebox.showinfo("Done", "The report has been generated successfully !")
     elif v == 2:
         call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
         call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
+        send_mail()
         messagebox.showinfo("Done", "The report has been generated successfully !")
     elif v == -1:
         messagebox.showerror("Error", "You must select a model before generating the report !")
