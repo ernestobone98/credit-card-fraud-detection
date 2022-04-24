@@ -118,7 +118,7 @@ def main_window():
 
     entry0 = Entry(
         bd = 0,
-        bg = "#f5f5f5",
+        bg = "#d1d1d1",
         highlightthickness = 0)
 
     entry0.place(
@@ -133,7 +133,7 @@ def main_window():
 
     entry1 = Entry(
         bd = 0,
-        bg = "#f5f5f5",
+        bg = "#d1d1d1",
         highlightthickness = 0,
         show="*")
 
