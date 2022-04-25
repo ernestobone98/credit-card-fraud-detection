@@ -13,7 +13,8 @@ def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
 def send_mail():
-    call(["python3", f"controllers{sep}send_email_fraude.py"])
+    call(['python3', f'controllers{sep}send_mail.py'])
+
 
 def create_report():
     v = choice.get()
@@ -22,15 +23,15 @@ def create_report():
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
         call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
-        send_mail()
         messagebox.showinfo("Done", "The report has been generated successfully !")
+        send_mail()
     elif v == 2:
         call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
         call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
-        send_mail()
         messagebox.showinfo("Done", "The report has been generated successfully !")
+        send_mail()
     elif v == -1:
         messagebox.showerror("Error", "You must select a model before generating the report !")
 
@@ -40,13 +41,16 @@ def log_out():
 
 def check_args(args):
     if len(args) != 2:
-        print("Error ! \n Usage : accueil_e.py [username]")
+        print("Error ! \t Usage : accueil_e.py [username]")
         sys.exit(1)
+    else:
+        if sys.argv[1] != 'be816425' and sys.argv[1] != 'gm801217':
+            print("Error ! \t Unknown username")
+            sys.exit(1)
 
 current_dir = os.getcwd()
 
 check_args(sys.argv)
-
 
 # ------------- Ml_test for help the print of table ------------- #
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
@@ -144,8 +148,8 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
 
 if sys.argv[1] == 'be816425':
-            img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
-            name = 'Ernesto'
+    img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
+    name = 'Ernesto'
 elif sys.argv[1] == 'gm801217':
     img3 = PhotoImage(file = f"views{sep}img{sep}marco.png")
     name = 'Marco'
