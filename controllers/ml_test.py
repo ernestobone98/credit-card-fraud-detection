@@ -1,9 +1,6 @@
-from http import client
 import os
-from sklearn.metrics import accuracy_score, classification_report
 from joblib import load
 import pandas as pd
-import random
 
 sep = os.path.sep
 current_dir = os.getcwd()
@@ -11,7 +8,7 @@ current_dir = os.getcwd()
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 new_data = data.drop(['Time'], axis=1)
 data = data.drop(['Time', 'Amount'], axis=1)
-clients = pd.read_csv(f'{current_dir}{sep}models{sep}clients.csv', sep= ',')
+clients = pd.read_csv(f'{current_dir}{sep}models{sep}clients.csv', sep= ';')
 X_exp = data.iloc[:, data.columns != 'Class']
 X = data.iloc[:, data.columns != 'Class']
 y = data.iloc[:, data.columns == 'Class']
@@ -33,9 +30,9 @@ def main():
     nf = new_data['Class'] == 0
     nf = new_data[nf].head(12)
 
-    print(f)
-    print(nf)
-    print(new_data.head())
+    # print(f)
+#     print(nf)
+    # print(new_data.head())
     # for i in range(len(new_data)):
     #     n = random.randint(1,100)
     #     clients.append(n)
@@ -49,16 +46,17 @@ def main():
     n = f.append(nf)
     n = n.iloc[:, new_data.columns != 'Class'].sample(15).reset_index(drop=True)
     predictions = rfc.predict(n.drop(['Amount', 'ID'], axis=1))
-    print(predictions)
-    print(n)
+    # print(predictions)
+    # print(n)
     n['Class'] = predictions
-    print(n)
+    # print(n)
 
     frauds = n[(n['Class'] == 1)]               # selecting frauds
-    print(frauds['ID'].values.tolist())
-    print(clients.head())
+    # print(frauds['ID'].values.tolist())
+    # print(clients.head())
     victimes = clients[clients['ID'].isin(frauds['ID'].values.tolist())].reset_index(drop=True)
-    print(victimes)
+    # print('vic\n',victimes)
+    return victimes
 
 if __name__ == '__main__':
     main()

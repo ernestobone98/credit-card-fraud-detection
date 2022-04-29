@@ -12,11 +12,12 @@ sep = os.path.sep
 
 def open_message():
     with open(f"views{sep}reports{sep}message_patron.txt") as file:
-        text = file.readlines()
+        text = ''.join(i for i in file.readlines())
+        print(type(text), text)
         if len(text) != 0:
-            messagebox.showinfo("Message", text)
+            messagebox.showinfo("Message:", text)
         else:
-            messagebox.showinfo("Pas de message", "Tout vas bien")
+            messagebox.showinfo("No message", "All is good")
 
 def open_report():
     call(["python3", f"controllers{sep}open_pdf.py"])
@@ -34,7 +35,7 @@ def add_item():
 
 window = Tk()
 window.geometry("1200x720")
-window.title("Interface du patron")
+window.title("Boss Interface")
 window.configure(bg = "#ffffff")
 canvas = Canvas(
     window,
@@ -52,7 +53,7 @@ background = canvas.create_image(
     image=background_img)
 
 img0 = PhotoImage(file = f"views{sep}img{sep}env.png")
-b0 = Button(
+open_message_button = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
@@ -60,7 +61,7 @@ b0 = Button(
     relief = "flat",
     background= '#262A33')
 
-b0.place(
+open_message_button.place(
     x = 131, y = 373,
     width = 45,
     height = 45)
@@ -73,7 +74,7 @@ canvas.create_text(
 
 img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
 
-b1 = Button(
+open_report_button = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
@@ -81,7 +82,7 @@ b1 = Button(
     relief = "flat",
     background='#D8BB67')
 
-b1.place(
+open_report_button.place(
     x = 1149, y = 25,
     width = 25,
     height = 25)
@@ -108,14 +109,14 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
 
 img3 = ImageTk.PhotoImage(Image.open(f"views{sep}img{sep}benjamin.png"))
-b3 = Label(
+face_pic = Label(
     background='#262A33',
     image = img3,
     borderwidth = 0,
     highlightthickness = 0,
     relief = "flat")
 
-b3.place(
+face_pic.place(
     x = 110, y = 135,
     width = 88,
     height = 88)
@@ -158,9 +159,6 @@ my_entry.place(height=30, width=500, x=450, y=365)
 
 add_button = Button(text="Add Item", command=add_item, background='#d4b356').place(height=30, width=75, x=1070, y=250)
 delete_button = Button(text="Delete Item", command=delete_item, background='#d4b356').place(height=30, width=75, x=1070, y=290)
-
-
-###########################################################################################################################################
 
 #################################################################################################
 ### ------------------------------------ PRINT CALENDAR  ------------------------------------ ### 
@@ -279,7 +277,6 @@ doge_label = Label(image = img_doge, background="white")
 doge_label.place(x = 345, y = 645, height = 15, width = 15)
 
 
-###################################################################################################################################
 stop = False
 t1 = threading.Thread(target=print_currencies, name="Tableau de valeurs")
 t1.start()

@@ -1,4 +1,7 @@
-import random, csv
+import random, os
+
+cur_dir = os.getcwd()
+sep = os.path.sep
 
 # -------------------------------------- Data Informations: Pull statistics from the internet -------------------------------------- #
 
@@ -65,7 +68,13 @@ name_woman = ["Marchand","Duval","Denis","Dumont","Marie","Lemaire","Noel","Meye
                 "Andre","Mercier","Blanc","Guerin","Boyer","Garnier","Chevalier","Francois","Legrand","Gauthier",
                 "Garcia","Perrin","Robin","Clement","Morin","Nicolas","Henry","Roussel","Mathieu","Gautier","Masson"]
 
-adressmail = ["marcogzapro@gmail.com"]
+adressmail = ["marco.gazzera", # Expert 1
+              "ernesto.bone-bravo", # Expert 2
+              "benjamin.bernaud", # Boss
+              "quentin.scordo"]
+
+probabilities = [30, 30, 15, 25]
+# probabilities = [0,0,100,0]
 
 def create_phones():
     phones = ""
@@ -88,12 +97,12 @@ def random_info_creation(s, n): # s = man or woman / n = id
     city = random.choice(cities)
     number = create_phones()
     id = n
-    adress_mail = random.choice(adressmail)
+    adress_mail = random.choices(adressmail, weights=probabilities, k=1)[0]+"@etu.univ-cotedazur.fr"
     
     return [id, f_name, name, age, job, city, number, adress_mail]
     
 if __name__ == '__main__':
-    f_out = "clients.csv"
+    f_out = f"{cur_dir}{sep}models{sep}clients.csv"
     m_client = 50 # number of men client
     w_client = 50 # number of women client
     client_list = []

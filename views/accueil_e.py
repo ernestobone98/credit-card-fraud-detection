@@ -12,6 +12,10 @@ sep = os.path.sep
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
+def send_mail():
+    call(['python3', f'controllers{sep}send_mail.py'])
+
+
 def create_report():
     v = choice.get()
     if v == 1:
@@ -19,15 +23,17 @@ def create_report():
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
         call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
-        messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
+        messagebox.showinfo("Done", "The report has been generated successfully !")
+        send_mail()
     elif v == 2:
         call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
         call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
-        messagebox.showinfo("Terminé", "Le rapport a été généré avec succès !")
+        messagebox.showinfo("Done", "The report has been generated successfully !")
+        send_mail()
     elif v == -1:
-        messagebox.showerror("Erreur", "Vous devez sélectionner un modèle avant de générer le rapport !")
+        messagebox.showerror("Error", "You must select a model before generating the report !")
 
 def log_out():
     window.destroy()
@@ -35,14 +41,18 @@ def log_out():
 
 def check_args(args):
     if len(args) != 2:
-        print("Error ! \n Usage : accueil_e.py [username]")
+        print("Error ! \t Usage : accueil_e.py [username]")
         sys.exit(1)
+    else:
+        if sys.argv[1] != 'be816425' and sys.argv[1] != 'gm801217':
+            print("Error ! \t Unknown username")
+            sys.exit(1)
 
 current_dir = os.getcwd()
 
 check_args(sys.argv)
 
-##################################################################
+# ------------- Ml_test for help the print of table ------------- #
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 clients = []
 X_exp = data.iloc[:, data.columns != 'Class']
@@ -59,14 +69,14 @@ f = data[f].head(3)
 nf = data['Class'] == 0
 nf = data[nf].head(10)
 
-# n est un dataframe qui contient 10 transactions normales et 3 frauduleuses qui vont etre utilisées comme demo dans l'interface de l'expert
+#n is a dataframe that contains 10 normal and 3 fraudulent transactions that will be used as a demo in the expert's interface
 n = f.append(nf)
 n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
-#################################################################
 
+# -------------------------- #
 window = Tk()
 window.geometry("1200x720")
-window.title("Interface de l'expert")
+window.title("Expert Interface")
 window.configure(bg = "#ffffff")
 canvas = Canvas(
     window,
@@ -84,7 +94,7 @@ background = canvas.create_image(
     image=background_img)
 
 img0 = PhotoImage(file = f"views{sep}img{sep}env.png")
-b0 = Button(
+send_message_button = Button(
     image = img0,
     borderwidth = 0,
     highlightthickness = 0,
@@ -92,7 +102,7 @@ b0 = Button(
     relief = "flat",
     background= '#262A33')
 
-b0.place(
+send_message_button.place(
     x = 131, y = 373,
     width = 45,
     height = 45)
@@ -104,8 +114,7 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
 
 img1 = PhotoImage(file = f"views{sep}img{sep}logout.png")
-
-b1 = Button(
+logout_button = Button(
     image = img1,
     borderwidth = 0,
     highlightthickness = 0,
@@ -113,13 +122,13 @@ b1 = Button(
     relief = "flat",
     background='#D8BB67')
 
-b1.place(
+logout_button.place(
     x = 1149, y = 25,
     width = 25,
     height = 25)
 
 img2 = PhotoImage(file = f"views{sep}img{sep}report.png")
-b2 = Button(
+report_button = Button(
     image = img2,
     borderwidth = 0,
     highlightthickness = 0,
@@ -127,7 +136,7 @@ b2 = Button(
     relief = "flat",
     background= '#262A33')
 
-b2.place(
+report_button.place(
     x = 131, y = 515,
     width = 45,
     height = 45)
@@ -139,20 +148,20 @@ canvas.create_text(
     font = ("RalewayRoman-Regular", int(18.0)))
 
 if sys.argv[1] == 'be816425':
-            img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
-            name = 'Ernesto'
+    img3 = PhotoImage(file = f"views{sep}img{sep}ernesto.png")
+    name = 'Ernesto'
 elif sys.argv[1] == 'gm801217':
     img3 = PhotoImage(file = f"views{sep}img{sep}marco.png")
     name = 'Marco'
 
-b3 = Label(
+face_pic = Label(
     background='#262A33',
     image = img3,
     borderwidth = 0,
     highlightthickness = 0,
     relief = "flat")
 
-b3.place(
+face_pic.place(
     x = 110, y = 135,
     width = 88,
     height = 88)
@@ -163,7 +172,7 @@ canvas.create_text(
     fill = "#ffffff",
     font = ("RalewayRoman-Regular", int(18.0)))
 
-
+# ------------- Print of table ------------- #
 f = Frame(bg="white",width=0,height=0)
 df = n.head(10)
 f.place(height=500, width=750, x=400, y=100)
@@ -172,6 +181,7 @@ pt.show()
  
 choice = IntVar(window, -1)
 
+# ------------- Radiobutton for reports ------------- #
 Radiobutton(window, text = "MLPC", value = 1,variable = choice, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=400, y=650)
 Radiobutton(window, text = "RFC", value = 2,variable = choice, background="white", indicatoron = 0, selectcolor='#d4b356').place(height=30, width=60, x=475, y=650)
 
