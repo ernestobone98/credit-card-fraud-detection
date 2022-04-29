@@ -68,12 +68,12 @@ name_woman = ["Marchand","Duval","Denis","Dumont","Marie","Lemaire","Noel","Meye
                 "Andre","Mercier","Blanc","Guerin","Boyer","Garnier","Chevalier","Francois","Legrand","Gauthier",
                 "Garcia","Perrin","Robin","Clement","Morin","Nicolas","Henry","Roussel","Mathieu","Gautier","Masson"]
 
-adressmail = ["marco.gazzera", # Expert 1
-              "ernesto.bone-bravo", # Expert 2
+adressmail = ["marcogzapro", # Expert 1
+              "chavy98", # Expert 2
               "benjamin.bernaud", # Boss
-              "quentin.scordo"]
+              "quentin2908"]
 
-probabilities = [30, 30, 15, 25]
+probabilities = [60, 0, 15, 25]
 # probabilities = [0,0,100,0]
 
 def create_phones():
@@ -97,7 +97,7 @@ def random_info_creation(s, n): # s = man or woman / n = id
     city = random.choice(cities)
     number = create_phones()
     id = n
-    adress_mail = random.choices(adressmail, weights=probabilities, k=1)[0]+"@etu.univ-cotedazur.fr"
+    adress_mail = random.choices(adressmail, weights=probabilities, k=1)[0]+"@gmail.com"
     
     return [id, f_name, name, age, job, city, number, adress_mail]
     
@@ -118,4 +118,4 @@ if __name__ == '__main__':
     with open(f_out, "w") as text_file:
         text_file.write("ID; Prenom; Nom; Age; Job; Ville; Tel; Adresse mail\n")
         for i in range(m_client + w_client):
-            text_file.write('; '.join(map(str, client_list[i])) + "\n")
+            text_file.write(','.join(map(str, client_list[i])) + "\n")
