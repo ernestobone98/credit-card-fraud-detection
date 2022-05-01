@@ -73,8 +73,8 @@ adressmail = ["marcogzapro", # Expert 1
               "benjamin.bernaud", # Boss
               "quentin2908"]
 
-probabilities = [60, 0, 15, 25]
-# probabilities = [0,0,100,0]
+# probabilities = [60, 0, 15, 25]
+probabilities = [0,0,100,0]
 
 def create_phones():
     phones = ""
@@ -116,6 +116,6 @@ if __name__ == '__main__':
     print(len(client_list), client_list)
     # Information writing
     with open(f_out, "w") as text_file:
-        text_file.write("ID; Prenom; Nom; Age; Job; Ville; Tel; Adresse mail\n")
+        text_file.write("ID,Prenom,Nom,Age,Job,Ville,Tel,Adresse mail\n")
         for i in range(m_client + w_client):
             text_file.write(','.join(map(str, client_list[i])) + "\n")
