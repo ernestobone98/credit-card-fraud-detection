@@ -4,34 +4,63 @@ from subprocess import call
 import sys
 from tkinter import messagebox
 from pandastable import Table
-from joblib import load
-import pandas as pd
+from datetime import datetime
+from controllers.send_mail import get_vict
+from controllers.ml_test import n 
 
 sep = os.path.sep
 
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
-def send_mail():
-    call(['python3', f'controllers{sep}send_mail.py'])
+def send_mail(arg):
+    call(['python3', '-m', 'controllers.send_mail', arg])
+    return get_vict()
 
+def msg_patron():
+    exp = check_args(sys.argv)
+    msg = f'''
+    Message de l'expert {exp} : 
+    J'ai lancé une analyse en ce jour à {datetime.now().strftime("%H:%M:%S")} et un mail a été envoyé aux victimes ! 
+    Bien cordialement,
+    Bonne journée ! 
+    '''
+    with open(f"views{sep}reports{sep}message_patron.txt", 'w') as f:
+        f.write(msg)
+
+def tmp_report(victimes):
+    ID, surname, name, mail, tel, amount = victimes
+    with open(f"controllers{sep}_report_tmp.txt", 'w') as f:
+        f.write("Liste des victimes : \n")
+        
+        for i in range(len(ID)):
+            f.write(f"ID : {ID[i]}, Prénom : {surname[i]}, Nom : {name[i]}, Adresse Mail : {mail[i]}, N° de Téléphone : {tel[i]}, Montant de la fraude : {amount[i]}.\n")
+
+def clean_tmp():
+    call(['rm', f'controllers{sep}_report_tmp.txt'])
 
 def create_report():
     v = choice.get()
     if v == 1:
+        victimes = send_mail('MLPC')
+        tmp_report(victimes)
         call(['rm', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
         call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
         messagebox.showinfo("Done", "The report has been generated successfully !")
-        send_mail()
+        msg_patron()
+        clean_tmp()
     elif v == 2:
+        victimes = send_mail('RFC')
+        tmp_report(victimes)
         call(['rm', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
         call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
         messagebox.showinfo("Done", "The report has been generated successfully !")
-        send_mail()
+        msg_patron()
+        clean_tmp()
     elif v == -1:
         messagebox.showerror("Error", "You must select a model before generating the report !")
 
@@ -47,32 +76,16 @@ def check_args(args):
         if sys.argv[1] != 'be816425' and sys.argv[1] != 'gm801217':
             print("Error ! \t Unknown username")
             sys.exit(1)
+    if sys.argv[1] == 'be816425' : return 2
+    elif sys.argv[1] == 'gm801217': return 1
+                    
 
 current_dir = os.getcwd()
 
 check_args(sys.argv)
 
 # ------------- Ml_test for help the print of table ------------- #
-data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
-clients = []
-X_exp = data.iloc[:, data.columns != 'Class']
-data = data.drop(['Time', 'Amount', 'ID'], axis=1)
-X = data.iloc[:, data.columns != 'Class']
-y = data.iloc[:, data.columns == 'Class']
-mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
-rfc = load(f'{current_dir}{sep}controllers{sep}RFC.joblib')
-
-
-f = data['Class'] == 1
-f = data[f].head(3)
-
-nf = data['Class'] == 0
-nf = data[nf].head(10)
-
-#n is a dataframe that contains 10 normal and 3 fraudulent transactions that will be used as a demo in the expert's interface
-n = f.append(nf)
-n = n.iloc[:, data.columns != 'Class'].sample(13).reset_index(drop=True)
-
+n = n()
 # -------------------------- #
 window = Tk()
 window.geometry("1200x720")
