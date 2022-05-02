@@ -73,7 +73,7 @@ def log_out():
 
 def check_args(args):
     if len(args) != 2:
-        print("Error ! \t Usage : accueil_e.py [username]")
+        print("Error ! \t Usage : python3 -m accueil_e.py [username]")
         sys.exit(1)
     else:
         if sys.argv[1] != 'be816425' and sys.argv[1] != 'gm801217':
