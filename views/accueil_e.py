@@ -5,7 +5,7 @@ import sys
 from tkinter import messagebox
 from pandastable import Table
 from datetime import datetime
-from controllers.send_mail import get_vict
+from controllers.send_mail import get_vict, main as mail
 from controllers.ml_test import n 
 
 sep = os.path.sep
@@ -13,28 +13,31 @@ sep = os.path.sep
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
 
-def send_mail(arg):
-    call(['python3', '-m', 'controllers.send_mail', arg])
-    return get_vict()
+def send_mail(model):
+    victimes = get_vict(model)
+    mail(victimes)
+    return victimes
 
 def msg_patron():
     exp = check_args(sys.argv)
     msg = f'''
     Message de l'expert {exp} : 
-    J'ai lancé une analyse en ce jour à {datetime.now().strftime("%H:%M:%S")} et un mail a été envoyé aux victimes ! 
-    Bien cordialement,
-    Bonne journée ! 
-    '''
+J'ai lancé une analyse en ce jour à {datetime.now().strftime("%H:%M:%S")} et un mail a été envoyé aux victimes ! 
+Vous pouvez consulter le rapport dès maintenant pour plus d'informations.
+Bien cordialement,
+Bonne journée ! 
+'''
     with open(f"views{sep}reports{sep}message_patron.txt", 'w') as f:
         f.write(msg)
 
 def tmp_report(victimes):
     ID, surname, name, mail, tel, amount = victimes
-    with open(f"controllers{sep}_report_tmp.txt", 'w') as f:
-        f.write("Liste des victimes : \n")
+    with open(f"_report_tmp.txt", 'w') as f:
+        f.write("\\large \\textbf{\\underline{Liste des victimes}} : \\bigbreak \\normalsize ")
         
         for i in range(len(ID)):
-            f.write(f"ID : {ID[i]}, Prénom : {surname[i]}, Nom : {name[i]}, Adresse Mail : {mail[i]}, N° de Téléphone : {tel[i]}, Montant de la fraude : {amount[i]}.\n")
+            f.write('\\textbf{\\emph{Victime '+ str(i) + '}'+'}'+' : \\newline ')
+            f.write(f"ID : {ID[i]} \\newline Prénom : {surname[i]} \\newline Nom : {name[i]} \\newline Adresse Mail : {mail[i]} \\newline Num. de Téléphone : 0{tel[i]} \\newline Montant de la fraude : {amount[i]}e \\bigbreak")
 
 def clean_tmp():
     call(['rm', f'controllers{sep}_report_tmp.txt'])
@@ -50,7 +53,7 @@ def create_report():
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
         messagebox.showinfo("Done", "The report has been generated successfully !")
         msg_patron()
-        clean_tmp()
+        # clean_tmp()
     elif v == 2:
         victimes = send_mail('RFC')
         tmp_report(victimes)
@@ -78,7 +81,6 @@ def check_args(args):
             sys.exit(1)
     if sys.argv[1] == 'be816425' : return 2
     elif sys.argv[1] == 'gm801217': return 1
-                    
 
 current_dir = os.getcwd()
 
