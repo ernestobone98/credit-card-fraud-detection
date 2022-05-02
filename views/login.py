@@ -63,7 +63,7 @@ def login():
         entry1.delete("0", "end")
         window.destroy()
         if ((user_name == expert1 and password == password_e1) or (user_name == expert2 and password == password_e2)):
-            call(["python3", f"views{sep}accueil_e.py", user_name])
+            call(["python3", '-m', "views.accueil_e", user_name])
         elif (user_name == patron and password == password_p):
             call(["python3", f"views{sep}accueil_p.py"])        
     else:
