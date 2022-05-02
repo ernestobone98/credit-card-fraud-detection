@@ -1,15 +1,9 @@
 import os
 from joblib import load
 import pandas as pd
-import sys 
 
 sep = os.path.sep
 current_dir = os.getcwd()
-
-def check_args(args):
-    if sys.argv[1] != 'MLPC' and sys.argv[1] != 'RFC':
-        print(f'Error ! Unknown Model ({sys.argv[1]})\n\t Usage : ml_test [Model Name]\n\t Models = MLPC / RFC')
-        sys.exit(1)
         
 data = pd.read_csv(f'{current_dir}{sep}models{sep}creditcard.csv', sep= ',')
 new_data = data.drop(['Time'], axis=1)
@@ -22,10 +16,7 @@ mlpc = load(f'{current_dir}{sep}controllers{sep}MLPC.joblib')
 rfc = load(f'{current_dir}{sep}controllers{sep}RFC.joblib')
 
 
-
 def main(arg):
-    check_args(arg)
-
     data = n()
 
     predictions_rfc = rfc.predict(data.drop(['Amount', 'ID'], axis=1))
@@ -53,7 +44,10 @@ def n():
     n = n.iloc[:, new_data.columns != 'Class'].sample(15).reset_index(drop=True)
     return n
 
-
-
 # victimes, amount = main('MLPC')
 # print(f'VICTIMES = {victimes}\nAMOUNT = {amount}')
+
+#############################################################################################################
+
+if __name__ == '__main__':
+    pass
