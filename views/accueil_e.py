@@ -53,7 +53,7 @@ def create_report():
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
         messagebox.showinfo("Done", "The report has been generated successfully !")
         msg_patron()
-        # clean_tmp()
+        clean_tmp()
     elif v == 2:
         victimes = send_mail('RFC')
         tmp_report(victimes)
