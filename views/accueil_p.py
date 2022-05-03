@@ -7,6 +7,9 @@ from PIL import ImageTk, Image
 import subprocess as sub
 from subprocess import call
 from tkinter.font import Font
+import cryptocompare
+import threading
+
 
 sep = os.path.sep
 
@@ -129,9 +132,7 @@ canvas.create_text(
 
 ###########################################################################################################################################
 
-#################################################################################################
-### -------------------------------------- TO DO LIST  -------------------------------------- ###
-#################################################################################################
+# ------------- To do list ------------- #
 
 titre_section = tkinter.Label(text="TO DO LIST ", background="white", font=("Times New Roman", 25, 'underline'), anchor='w')
 titre_section.place(height=50, width=400, x=350, y=100)
@@ -160,9 +161,7 @@ my_entry.place(height=30, width=500, x=450, y=365)
 add_button = Button(text="Add Item", command=add_item, background='#d4b356').place(height=30, width=75, x=1070, y=250)
 delete_button = Button(text="Delete Item", command=delete_item, background='#d4b356').place(height=30, width=75, x=1070, y=290)
 
-#################################################################################################
-### ------------------------------------ PRINT CALENDAR  ------------------------------------ ### 
-#################################################################################################  
+# ------------- Print calendar ------------- #
 
 from tkcalendar import Calendar
 
@@ -172,22 +171,10 @@ def grad_date():
 	date.config(text = "Selected Date is: " + cal.get_date())
 
 date = Label(text = "").place(height=200, x = 800, y = 460)
-  
-##################################################################################################
-### ------------------------------------- TABLEAU COIN   ------------------------------------- ### 
-##################################################################################################
+
+# ------------- Print table coins ------------- #
 
 os.environ['CRYPTOCOMPARE_API_KEY'] = '61aa8867b5734768ef4b2e53a3fc00c09cf872807ea305db867f8ff54f8fc2b8'
-
-
-import cryptocompare
-import threading
-
-# Bitcoin	
-# Ethereum	
-# XRP
-# Terra
-# Dogecoin
 
 currency_frame = Frame(window, background="white").place(height=250, width=350, x=310, y=450)
 
@@ -202,32 +189,32 @@ def print_currencies():
     while True:
         if stop:
             break
-        # get values
+        # ------------- Get values ------------- #
         btc = get_crypto_price('BTC', 'EUR')
         eth = get_crypto_price('ETH', 'EUR')
         xrp = get_crypto_price('XRP', 'EUR')
         terra = get_crypto_price('LUNA', 'EUR')
         doge = get_crypto_price('DOGE', 'EUR')
 
-        ### print values ###
+       # ------------- print values ------------- #
 
-        #btc
+        #btc: Bitcoin
         btc_value = tkinter.Label(text=str(btc)+' €', background="white", font=("Times New Roman", 18), anchor='w')
         btc_value.place(height=50, width=200, x=475, y=470)
 
-        #eth
+        #eth: Ethereum
         eth_value = tkinter.Label(text=str(eth)+' €', background="white", font=("Times New Roman", 18), anchor='w')
         eth_value.place(height=50, width=200, x=475, y=510)
 
-        #xrp
+        #xrp: XRP
         xrp_value = tkinter.Label(text=str(xrp)+' €', background="white", font=("Times New Roman", 18), anchor='w')
         xrp_value.place(height=50, width=200, x=475, y=550)
 
-        #terra
+        #terra: Terra
         terra_value = tkinter.Label(text=str(terra)+' €', background="white", font=("Times New Roman", 18), anchor='w')
         terra_value.place(height=50, width=200, x=475, y=590)
 
-        #doge
+        #doge: Dogecoin
         dogecoin_value = tkinter.Label(text=str(doge)+' €', background="white", font=("Times New Roman", 18), anchor='w')
         dogecoin_value.place(height=50, width=200, x=475, y=630)
 

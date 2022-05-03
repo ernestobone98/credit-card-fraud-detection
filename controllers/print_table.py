@@ -14,13 +14,10 @@ class TestApp(Frame):
             f.pack(fill=BOTH,expand=1)
             df = n.head(10)
             print(df.shape)
-            self.table = pt = Table(f, dataframe=df,
-                                    showtoolbar=True, showstatusbar=True)
+            self.table = pt = Table(f, dataframe=df, showtoolbar=True, showstatusbar=True)
             pt.show()
             return
 
 app = TestApp()
-#launch the app
-app.mainloop()
 
-# reste a l'afficher sur accueil_e
+app.mainloop()

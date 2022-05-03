@@ -2,7 +2,6 @@ import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-# from email.utils import formatdate
 import sys
 
 def check_args(args):
@@ -12,31 +11,26 @@ def check_args(args):
 
 check_args(sys.argv)
 
-##############################################################################################
-### ------------------------------------ CONFIG SMTP  ------------------------------------ ### 
-##############################################################################################  
+# ------------- Configuartion SMTP ------------- #
 
 smtp_server = "smtp.gmail.com" 
 port = 587  
 
 sender_email = "bankdaddys@gmail.com"  
-receiver_email = str(sys.argv[3])    #["marcogzapro@gmail.com"]
+receiver_email = str(sys.argv[3])   
 password = "fmuieqauszmbeoix" 
 
 surname = sys.argv[1]
 name = sys.argv[2]
 ID = sys.argv[4]
 
-############################################################################################
-### ------------------------------------ EMAIL BODY ------------------------------------ ### 
-############################################################################################  
+# ------------- Email body ------------- #
 
 msg = MIMEMultipart()
 msg["Subject"] = "Alerte d'insécurité"
 msg["From"] = sender_email
 msg['To'] = "".join(receiver_email)
 
-## Plain text
 text = ""
 
 body_text = MIMEText(text, 'plain')  
@@ -67,9 +61,7 @@ html = f"""
 body_html = MIMEText(html, 'html')
 msg.attach(body_html)  
 
-############################################################################################
-### ------------------------------------ SEND EMAIL ------------------------------------ ### 
-############################################################################################  
+# ------------- Send email ------------- #
 
 context = ssl.create_default_context()
 # Try to log in to server and send email 
