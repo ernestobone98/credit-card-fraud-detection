@@ -63,7 +63,7 @@ def clean_tmp():
 
 def create_report():
     v = choice.get()
-    t.start()
+    if v != -1 : t.start() #fix the waiting message when we dont generate report
     if v == 1:
         victimes = send_mail('MLPC')
         tmp_report(victimes)
@@ -80,7 +80,7 @@ def create_report():
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
     elif v == -1:
         messagebox.showerror("Error", "You must select a model before generating the report !")
-    
+        return 1
     messagebox.showinfo("Done", "The report has been generated successfully !")
     msg_patron()
     clean_tmp()
