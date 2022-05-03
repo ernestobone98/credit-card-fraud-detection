@@ -3,57 +3,59 @@
 With this project, we are trying to implement software to detect everyday common credit card fraud. 
 
 There is also a GUI part:
-    - when launching the project: there is an animation
-    - once the animation is finished, a first interface is displayed on your screen in order to give access to the expert accounts and that of the boss
-        * for experts there are therefore 2 accounts:
-            - that of Marco with the identifier gm801217
-            - that of Ernesto with the identifier be816425
+    - when launching the project : there is an animation
+    - once the animation is finished, a first interface is displayed on your screen in order to give access to the expert accounts and to the boss' one
+        * for experts there are 2 accounts:
+            - Marco's one with the identifier gm801217
+            - Ernesto's one with the identifier be816425
         * for the boss:
-            - that of Benjamin with the identifier bb809906
-Passwords change with each execution.
+            - Benjamin's one with the identifier bb809906
+
+Passwords change at each execution.
 
 **DEBUGGING** The goal is to improve customer security. For this, we will implement machine learning algorithms such as:
 Over/under sampling;
 
-## How it works:
+## How does it work:
 
-#---- Dection fraud ----#
+#---- Detection fraud ----#
 TO DO 
 
 #---- For GUI ----#
 Experts on their GUI can:
     - Send a message to the boss
-    - Generate report
+    - Generate report and prevent victims
     - View data
 The boss can:
     - Open messages
     - Open reports
-    - Write down information using the To do list
-    - See the curve of 5 cryptocurrencies in real time
-    - Easy access to see today's date and help plan
+    - Write down information using the 'To do list'
+    - See the evolution of 5 cryptocurrencies in real time
+    - Easily access to a calendar (to see today's date and help planning)
 
 
 ### Run projet:
-We advise you if you are on Ubuntu to download Xlunch, once that type:
-    source env/bin/activate
-    export DISPLAY=:0
+We advise you if you are on Ubuntu to download Xlunch, then type:
+    *source env/bin/activate*
+    *export DISPLAY=:0*
+this will link the display to the app.
 
-You are therefore connected to the env of the project.
+Make sure to install all the librairies needed in your virtual environment:
+    *pip install -r controllers/requirements.txt*
 
-Once that run the project using:
-    (on Ubuntu): python3 views/login.py
-    (on Windows): python3 views\login.py
+Once done, you can simply run the project using:
+    **python3 main.py**
 
-Link you guide in your terminal will display the passwords to connect where you want. Note that:
-    - if you want one of the two expert accounts you have to choose gm801217 or be816425
-    - if you want the boss account bb809906
+Your terminal will display passwords to log in wherever you want. Note that:
+    - if you want one of the two expert accounts you have to choose between gm801217 and be816425
+    - if you want the boss account then bb809906
 
 For latex to compile, you must install (if you haven't already) the following packages:
 - texlive
 - texlive-lang-french
 - texlive-latex-extra
 
-If you have a problem watch the requirement.txt or see the error message which must be a ImportError
+If you have a problem watch the requirements.txt or see the error message which (must be an ImportError)
 
 ##### Matches and aliases
 
