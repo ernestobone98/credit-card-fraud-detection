@@ -1,4 +1,3 @@
-from multiprocessing import Value
 import os
 from tkinter import *
 from tkinter import messagebox
@@ -9,7 +8,6 @@ from subprocess import call
 from tkinter.font import Font
 import cryptocompare
 import threading
-
 
 sep = os.path.sep
 
