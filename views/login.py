@@ -3,12 +3,12 @@ from tkinter import ttk, Tk
 from tkinter import *
 from tkinter import messagebox
 import os
+import string
+from random import *
+import threading
 
 sep = os.path.sep
 current_dir = os.getcwd()
-
-import string
-from random import *
 
 # ------------- Generate authorized characters for the password ------------- #
 struct = string.ascii_letters + string.punctuation + string.digits 
@@ -19,9 +19,14 @@ password_e1 = "".join(choice(struct) for x in range(randint(8,16)))
 password_e2 = "".join(choice(struct) for x in range(randint(8,16)))
 
 # -- Affichage -- #
-print("gm801217: {}".format(password_e1))
-print("be816425: {}".format(password_e2))
-print("bb809906: {}".format(password_p))
+print('''
+-----------------------
+| Username : Password |
+-----------------------
+''')
+print("gm801217 : {}".format(password_e1))
+print("be816425 : {}".format(password_e2))
+print("bb809906 : {}".format(password_p))
 
 # ------------- Hashes passwords and stores in a text file ------------- #
 password_e1_h = str(hash(password_e1))
@@ -33,6 +38,7 @@ with open("109111116321001013211297115115101.txt", "w") as txtfile:
     print(": {}".format(password_e2_h), file=txtfile)
     print(": {}".format(password_p_h), file=txtfile)
 
+# --------------------------- Print Messages --------------------------- #
 def showMessage(message, type='info', timeout=2500): #function that shows a message during a certain time
     root = Tk()
     root.withdraw()
@@ -47,6 +53,10 @@ def showMessage(message, type='info', timeout=2500): #function that shows a mess
     except:
         pass
 
+def wait_message():
+    showMessage("I'm building the interface !", timeout = 5000)
+
+t = threading.Thread(target=wait_message, name='Attente interface')
 # ------------- Login session: with connection case ------------- #
 def login():
     expert1 = "gm801217" 
@@ -62,10 +72,12 @@ def login():
         entry0.delete("0", "end")
         entry1.delete("0", "end")
         window.destroy()
+        t.start()
         if ((user_name == expert1 and password == password_e1) or (user_name == expert2 and password == password_e2)):
             call(["python3", '-m', "views.accueil_e", user_name])
         elif (user_name == patron and password == password_p):
-            call(["python3", f"views{sep}accueil_p.py"])        
+            call(["python3", f"views{sep}accueil_p.py"])
+        t.join()     
     else:
         messagebox.showwarning("", "Connexion error")
         entry1.delete("0", "end")

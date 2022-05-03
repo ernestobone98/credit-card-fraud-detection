@@ -7,8 +7,27 @@ from pandastable import Table
 from datetime import datetime
 from controllers.send_mail import get_vict, main as mail
 from controllers.ml_test import n 
+import threading
 
 sep = os.path.sep
+
+def showMessage(message, type='info', timeout=2500): #function that shows a message during a certain time
+    root = Tk()
+    root.withdraw()
+    try:
+        root.after(timeout, root.destroy)
+        if type == 'info':
+            messagebox.showinfo('Info', message, master=root)
+        elif type == 'warning':
+            messagebox.showwarning('Warning', message, master=root)
+        elif type == 'error':
+            messagebox.showerror('Error', message, master=root)
+    except:
+        pass
+
+def generating_report():
+    showMessage("I'm building the report, please wait few seconds !", timeout=5000)
+t = threading.Thread(target=generating_report, name='Message when generating report')
 
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
@@ -44,6 +63,7 @@ def clean_tmp():
 
 def create_report():
     v = choice.get()
+    t.start()
     if v == 1:
         victimes = send_mail('MLPC')
         tmp_report(victimes)
@@ -51,9 +71,6 @@ def create_report():
         call(['pdflatex', f'controllers{sep}rapport_MLPC.tex'])
         call(['mv', 'rapport_MLPC.pdf', f'views{sep}reports{sep}rapport_MLPC.pdf'])
         call(['rm','rapport_MLPC.aux', 'rapport_MLPC.log'])
-        messagebox.showinfo("Done", "The report has been generated successfully !")
-        msg_patron()
-        clean_tmp()
     elif v == 2:
         victimes = send_mail('RFC')
         tmp_report(victimes)
@@ -61,11 +78,13 @@ def create_report():
         call(['pdflatex', f'controllers{sep}rapport_RFC.tex'])
         call(['mv', 'rapport_RFC.pdf', f'views{sep}reports{sep}rapport_RFC.pdf'])
         call(['rm','rapport_RFC.aux', 'rapport_RFC.log'])
-        messagebox.showinfo("Done", "The report has been generated successfully !")
-        msg_patron()
-        clean_tmp()
     elif v == -1:
         messagebox.showerror("Error", "You must select a model before generating the report !")
+    
+    messagebox.showinfo("Done", "The report has been generated successfully !")
+    msg_patron()
+    clean_tmp()
+    t.join()
 
 def log_out():
     window.destroy()
@@ -83,12 +102,11 @@ def check_args(args):
     if sys.argv[1] == 'be816425' : return 2
     elif sys.argv[1] == 'gm801217': return 1
 
-current_dir = os.getcwd()
-
 check_args(sys.argv)
 
 # ------------- Ml_test for help the print of table ------------- #
 n = n()
+
 # -------------------------- #
 window = Tk()
 window.geometry("1200x720")
