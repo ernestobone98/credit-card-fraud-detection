@@ -40,7 +40,7 @@ def tmp_report(victimes):
             f.write(f"ID : {ID[i]} \\newline Prénom : {surname[i]} \\newline Nom : {name[i]} \\newline Adresse Mail : {mail[i]} \\newline Num. de Téléphone : 0{tel[i]} \\newline Montant de la fraude : {amount[i]}e \\bigbreak")
 
 def clean_tmp():
-    call(['rm', f'controllers{sep}_report_tmp.txt'])
+    call(['rm', '_report_tmp.txt'])
 
 def create_report():
     v = choice.get()
@@ -69,6 +69,7 @@ def create_report():
 
 def log_out():
     window.destroy()
+    call(['clear'])
     call(["python3", f"views{sep}login.py"])
 
 def check_args(args):

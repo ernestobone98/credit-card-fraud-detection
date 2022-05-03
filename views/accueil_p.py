@@ -16,7 +16,7 @@ sep = os.path.sep
 def open_message():
     with open(f"views{sep}reports{sep}message_patron.txt") as file:
         text = ''.join(i for i in file.readlines())
-        print(type(text), text)
+        print('Message:\n', text)
         if len(text) != 0:
             messagebox.showinfo("Message:", text)
         else:
@@ -27,6 +27,7 @@ def open_report():
 
 def log_out():
     window.destroy()
+    sub.call(['clear'])
     sub.call(["python3", f"views{sep}login.py"])
 
 def delete_item():
