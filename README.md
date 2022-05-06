@@ -13,13 +13,21 @@ There is also a GUI part:
 
 Passwords change at each execution.
 
-**DEBUGGING** The goal is to improve customer security. For this, we will implement machine learning algorithms such as:
-Over/under sampling;
+**DEBUGGING** The goal is to improve customer security. For this, we will implement machine learning algorithms.
 
 ## How does it work:
 
-#---- Detection fraud ----#
-TO DO 
+#---- Fraud detection ----#
+
+We've worked with an imbalanced dataset from kaggle (we all know that frauds are not common, so that's why)
+To manage this problem we've implemented the Over-Sampling technique, specifically, the Random Over Sampler method from sklearn.
+
+With the data already balanced we've used a Random Forest to classify and get information from data
+we got a good precision of (PRECISER L'EFFICACITE).
+
+Same with a Neural Network, but this time with a worst precision (PRECISER L'EFFICACITE).
+
+DEBUGGING --> The goal in a near future is to merge both solutions to get a better one.
 
 #---- For GUI ----#
 Experts on their GUI can:
