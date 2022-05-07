@@ -40,11 +40,11 @@ def send_mail(model):
 def msg_patron():
     exp = check_args(sys.argv)
     msg = f'''
-    Message de l'expert {exp} : 
-J'ai lancé une analyse en ce jour à {datetime.now().strftime("%H:%M:%S")} et un mail a été envoyé aux victimes ! 
-Vous pouvez consulter le rapport dès maintenant pour plus d'informations.
-Bien cordialement,
-Bonne journée ! 
+    Message from the exepert {exp} : 
+I realized an ML analyse today at {datetime.now().strftime("%H:%M:%S")} and an email was sent to our affected clients!
+You can check the report generated as a pdf to have more information.
+Thank you,
+Have a good day!
 '''
     with open(f"views{sep}reports{sep}message_patron.txt", 'w') as f:
         f.write(msg)
