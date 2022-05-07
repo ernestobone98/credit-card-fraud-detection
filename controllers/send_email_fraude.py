@@ -39,15 +39,15 @@ msg.attach(body_text)
 html = f"""
 <html>
   <body>
-    <p style="color:black;"> Bonjour Madame, Monsieur {surname} {name}, </p>
+    <p style="color:black;"> Dear Sir/Madam {surname} {name}, </p>
     <p style="color:black;">
-    Nous vous informons qu'une fraude a été détectée sur votre compte Bank of Daddys. <br>
-    Rassurez-vous, notre équipe d'experts y travaille déjà ! <br>
-    Nous sommes à votre disposition pour toutes informations complémentaires, 
-    n'hésitez pas à nous contacter en nous fournissant votre identifiant client (pour rappel, votre identifiant est le n°{int(ID)}).
+    I regret to inform you that fraud has been detected on your Bank of Daddys account. <br>
+    Don't worry, our team of experts are already working on it! <br>
+    For further information, do not hesitate to contact us by providing your customer ID (as a reminder, your ID is the number {int(ID)}).
+    Please accept our apologies.
     </p>
     <p style="color:black;">
-    Bien cordialement, le Département Protection Clients.
+    Sincerely, Customer Protection Department.
     </p>
     <p style="color:black;">
     <i><strong>28, Avenue Valrose <br>
