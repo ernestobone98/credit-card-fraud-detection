@@ -43,7 +43,7 @@ html = f"""
     <p style="color:black;">
     I regret to inform you that fraud has been detected on your Bank of Daddys account. <br>
     Don't worry, our team of experts are already working on it! <br>
-    For further information, do not hesitate to contact us by providing your customer ID (as a reminder, your ID is the number {int(ID)}).
+    For further information, do not hesitate to contact us by providing your customer ID (as a reminder, your ID is the number {int(ID)}). <br>
     Please accept our apologies.
     </p>
     <p style="color:black;">
