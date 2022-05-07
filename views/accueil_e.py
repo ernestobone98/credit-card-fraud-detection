@@ -28,7 +28,6 @@ def showMessage(message, type='info', timeout=2500):
 
 def generating_report():
     showMessage("I'm building the report, please wait few seconds !", timeout=5000)
-t = threading.Thread(target=generating_report, name='Message when generating report')
 
 def create_message():
     call(["python3", f"controllers{sep}write.py"])
@@ -64,7 +63,9 @@ def clean_tmp():
 def create_report():
     v = choice.get()
     # ----------- Fix the waiting message when we dont generate report ----------- #
-    if v != -1 : t.start()
+    if v != -1 :         
+        t = threading.Thread(target=generating_report, name='Message when generating report')
+        t.start() #fix the waiting message when we dont generate report
     if v == 1:
         victimes = send_mail('MLPC')
         tmp_report(victimes)
