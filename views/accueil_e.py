@@ -39,11 +39,10 @@ def send_mail(model):
 
 def msg_patron():
     exp = check_args(sys.argv)
-    msg = f'''
-    Message from the exepert {exp} : 
-I realized an ML analyse today at {datetime.now().strftime("%H:%M:%S")} and an email was sent to our affected clients!
-You can check the report generated as a pdf to have more information.
-Thank you,
+    msg = f'''Message from the expert {exp} : 
+I performed an ML analysis today at {datetime.now().strftime("%H:%M:%S")} and an email has been sent to our affected clients!
+You can check the generated report as a pdf for more information.
+Thanks,
 Have a good day!
 '''
     with open(f"views{sep}reports{sep}message_patron.txt", 'w') as f:
@@ -54,7 +53,7 @@ def tmp_report(victimes):
     with open(f"_report_tmp.txt", 'w') as f:
         f.write("\\large \\textbf{\\underline{Liste des victimes}} : \\bigbreak \\normalsize ")
         
-        for i in range(len(ID)):
+        for i in range(1, len(ID)+1):
             f.write('\\textbf{\\emph{Victime '+ str(i) + '}'+'}'+' : \\newline ')
             f.write(f"ID : {ID[i]} \\newline Prénom : {surname[i]} \\newline Nom : {name[i]} \\newline Adresse Mail : {mail[i]} \\newline Num. de Téléphone : 0{tel[i]} \\newline Montant de la fraude : {amount[i]}e \\bigbreak")
 
