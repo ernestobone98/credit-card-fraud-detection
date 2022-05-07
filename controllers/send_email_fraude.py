@@ -64,19 +64,18 @@ msg.attach(body_html)
 # ------------- Send email ------------- #
 
 context = ssl.create_default_context()
-# Try to log in to server and send email 
+# ----------- Try to log in to server ----------- #
 try:
     server = smtplib.SMTP(smtp_server, port)
     server.ehlo()  # check connection
     server.starttls(context=context)  # Secure the connection
     server.ehlo()  # check connection
     server.login(sender_email, password)
-
-    # Send email here
+    # ----------- Send email ----------- #
     server.sendmail(sender_email, receiver_email, msg.as_string())
 
 except Exception as e:
-    # Print any error messages 
+    # ----------- Print any error messages  ----------- #
     print(e)
 finally:
     server.quit()

@@ -17,9 +17,9 @@ def browseFiles():
 
 	variable1 = pdf.ShowPdf()
 	win.geometry('630x700+400+100')
-	#Add your pdf location and width and height.
+	# ----------- Add your pdf location and width and height ----------- #
 	variable2 = variable1.pdf_view(win,pdf_location=filename,width=100,height=100)
 	variable2.pack()
 
 browseFiles()
-win.mainloop()
+win.mainloop()	

@@ -74,7 +74,6 @@ adressmail = ["marcogzapro", # Expert 1
               "quentin2908"]
 
 probabilities = [60, 0, 15, 25]
-# probabilities = [0,0,100,0]
 
 def create_phones():
     phones = ""

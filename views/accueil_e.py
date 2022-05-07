@@ -11,7 +11,8 @@ import threading
 
 sep = os.path.sep
 
-def showMessage(message, type='info', timeout=2500): #function that shows a message during a certain time
+# ----------- Function that shows a message during a certain time ----------- #
+def showMessage(message, type='info', timeout=2500): 
     root = Tk()
     root.withdraw()
     try:
@@ -62,7 +63,8 @@ def clean_tmp():
 
 def create_report():
     v = choice.get()
-    if v != -1 : t.start() #fix the waiting message when we dont generate report
+    # ----------- Fix the waiting message when we dont generate report ----------- #
+    if v != -1 : t.start()
     if v == 1:
         victimes = send_mail('MLPC')
         tmp_report(victimes)
@@ -103,7 +105,6 @@ def check_args(args):
 
 check_args(sys.argv)
 
-# ------------- Ml_test for help the print of table ------------- #
 n = n()
 
 # -------------------------- #
