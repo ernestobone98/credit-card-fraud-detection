@@ -53,8 +53,8 @@ def tmp_report(victimes):
     with open(f"_report_tmp.txt", 'w') as f:
         f.write("\\large \\textbf{\\underline{Liste des victimes}} : \\bigbreak \\normalsize ")
         
-        for i in range(1, len(ID)+1):
-            f.write('\\textbf{\\emph{Victime '+ str(i) + '}'+'}'+' : \\newline ')
+        for i in range(len(ID)):
+            f.write('\\textbf{\\emph{Victime '+ str(i+1) + '}'+'}'+' : \\newline ')
             f.write(f"ID : {ID[i]} \\newline Prénom : {surname[i]} \\newline Nom : {name[i]} \\newline Adresse Mail : {mail[i]} \\newline Num. de Téléphone : 0{tel[i]} \\newline Montant de la fraude : {amount[i]}e \\bigbreak")
 
 def clean_tmp():
