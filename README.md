@@ -23,9 +23,9 @@ We've worked with an imbalanced dataset from kaggle (we all know that frauds are
 To manage this problem we've implemented the Over-Sampling technique, specifically, the Random Over Sampler method from sklearn.
 
 With the data already balanced we've used a Random Forest to classify and get information from data
-we got a good precision of (PRECISER L'EFFICACITE).
+we got a f1-score precision of 96% .
 
-Same with a Neural Network, but this time with a worst precision (PRECISER L'EFFICACITE).
+Same with a Neural Network, but this time with a worst f1-score precision of 91%.
 
 DEBUGGING --> The goal in a near future is to merge both solutions to get a better one.
 
