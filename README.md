@@ -30,6 +30,7 @@ Same with a Neural Network, but this time with a worst f1-score precision of 91%
 DEBUGGING --> The goal in a near future is to merge both solutions to get a better one.
 
 #---- For GUI ----#
+
 Experts on their GUI can:
     - Send a message to the boss
     - Generate report and prevent victims
