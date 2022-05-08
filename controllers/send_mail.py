@@ -8,7 +8,7 @@ def main(victimes):
     ID, Surname, Name, Mail, _, _ = victimes
     for prenom, nom, mail, id in zip(Surname, Name, Mail, ID):
         call(['python3', f'controllers{sep}send_email_fraude.py', prenom, nom, mail, str(id)])
-        print(f"Mail envoyé avec succes a {prenom} {nom} ! [{mail}]")
+        print(f"Mail successfully sent to {prenom} {nom} ! [{mail}]")
     
 def get_vict(model):
     victimes, amounts = vict(model) 
