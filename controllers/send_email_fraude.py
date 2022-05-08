@@ -27,7 +27,7 @@ ID = sys.argv[4]
 # ------------- Email body ------------- #
 
 msg = MIMEMultipart()
-msg["Subject"] = "Alerte d'insécurité"
+msg["Subject"] = "Insecurity Alert"
 msg["From"] = sender_email
 msg['To'] = "".join(receiver_email)
 
