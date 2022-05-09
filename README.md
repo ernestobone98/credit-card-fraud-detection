@@ -5,9 +5,11 @@ With this project, we are trying to implement software to detect everyday common
 There is also a GUI part:
     - when launching the project : there is an animation
     - once the animation is finished, a first interface is displayed on your screen in order to give access to the expert accounts and to the boss' one
+
         * for experts there are 2 accounts:
             - Marco's one with the identifier gm801217
             - Ernesto's one with the identifier be816425
+            
         * for the boss:
             - Benjamin's one with the identifier bb809906
 
