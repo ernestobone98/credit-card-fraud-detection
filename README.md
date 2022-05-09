@@ -45,6 +45,7 @@ The boss can:
 
 ### Run projet:
 We advise you if you are on Ubuntu to download Xlunch, then type:
+    *python3 -m venv env* (to create a virtual environment. If you don't have the venv module installed just install it with pip)
     *source env/bin/activate*
     *export DISPLAY=:0*
 this will link the display to the app.
